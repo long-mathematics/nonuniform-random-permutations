@@ -10,7 +10,7 @@ OUTPUT = ROOT / "output" / "pdf"
 MANIFEST = OUTPUT / "manifest.json"
 BUILD = ROOT / ".build"
 
-DOCUMENTS = [
+README_ALLOWED_COMMANDS = {\n    "Phi", "Rightarrow", "Theta", "frac", "infty", "kappa", "lambda", "le",\n    "left", "log", "longrightarrow", "mathbb", "mathcal", "mathrm", "qquad",\n    "rho", "right", "sigma", "sim", "sqrt", "text", "to", "varphi",\n}\n\nDOCUMENTS = [
     ("papers/01-luce-boundary-cycle-laws/luce-boundary-cycle-laws.tex", "luce-boundary-cycle-laws.pdf"),
     ("papers/02-mesoscopic-luce-cycles/mesoscopic-luce-cycles.tex", "mesoscopic-luce-cycles.pdf"),
     ("papers/03-luce-erdos-turan/luce-erdos-turan.tex", "luce-erdos-turan.pdf"),
