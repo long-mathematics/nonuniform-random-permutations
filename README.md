@@ -28,7 +28,7 @@ The stationary distribution of the Tsetlin library is the Luce distribution, equ
 For uniformly positive continuous profiles it proves joint Poisson limits for every fixed cycle-count vector and an exponentially small correction to the uniform trace law:
 
 $$
-\lambda_r=\frac1r+O_f\!\left(\frac{q^r}{r}\right),\qquad 0<q<1.
+\lambda_r=\frac1r+O_f\left(\frac{q^r}{r}\right),\qquad 0<q<1.
 $$
 
 Under uniformly comparable positive weights, the ranked macroscopic cycle lengths converge to $\mathrm{PD}(1)$ and the size-biased deletion order converges to $\mathrm{GEM}(1)$.
@@ -72,7 +72,7 @@ The proof combines the switching theory with an arithmetic product-to-least-comm
 Writing $O_n=\mathrm{ord}(\sigma_n)$, $m_n=\mathbb{E}\log O_n$, and $L=\log n$, the quantitative supplement proves
 
 $$
-\mathrm{d}_{\mathrm K}\!\left(
+\mathrm{d}_{\mathrm K}\left(
 \frac{\log O_n-m_n}{\sqrt{L^3/3}},N(0,1)
 \right)
 \le \frac{C_\kappa}{\sqrt L},
@@ -81,9 +81,9 @@ $$
 and, uniformly in $x$,
 
 $$
-\mathbb{P}\!\left\{
+\mathbb{P}\left[
 \frac{\log O_n-m_n}{\sqrt{L^3/3}}\le x
-\right\}
+\right]
 =
 \Phi(x)-\frac{\sqrt3}{8}(x^2-1)\varphi(x)L^{-1/2}
 +o_\kappa(L^{-1/2}).
@@ -104,7 +104,7 @@ $$
 even though
 
 $$
-\mathrm{d}_{\mathrm{TV}}\!\left(
+\mathrm{d}_{\mathrm{TV}}\left(
 \mathcal{L}(\rho_n),\mathrm{Unif}(S_n)
 \right)\longrightarrow1.
 $$
