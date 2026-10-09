@@ -64,8 +64,22 @@ class RepositoryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             fake=Path(d)
             (fake/"README.md").write_text(
-                original+"\n$\n\\mathbb{P}\\left[x\\le 1\\right]\n$\n",
+                original+"\n$$\n\\mathbb{P}\\left[x\\le 1\\right]\n$$\n",
                 encoding="utf-8",
+            )
+            old=build.ROOT
+            try:
+                build.ROOT=fake
+                with self.assertRaises(RuntimeError): build.check_readme_math()
+            finally:
+                build.ROOT=old
+
+    def test_standalone_single_dollar_display_rejected(self):
+        original=(ROOT/"README.md").read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory() as d:
+            fake=Path(d)
+            (fake/"README.md").write_text(
+                original+"\n$\n\\Phi(x)\n$\n",encoding="utf-8"
             )
             old=build.ROOT
             try:
