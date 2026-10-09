@@ -17,7 +17,7 @@ The repository separates current manuscripts, working branches, historical audit
 | V | Erdős--Turán Universality after One Shuffle | [Read PDF](output/pdf/one-shuffle-universality.pdf) | [Source](papers/05-one-shuffle-universality/one-shuffle-universality.tex) |
 | VI | Residual-Mass Transform Order for LRU Caching and the Coupon Collector | [Read PDF](output/pdf/residual-mass-transform-order.pdf) | [Source](papers/06-residual-mass-transform-order/residual-mass-transform-order.tex) |
 
-The PDFs are committed snapshots compiled from the linked sources. Intermediate files are kept out of the repository.
+The PDFs are committed deterministic snapshots compiled from the linked sources. CI rebuilds every document from a clean checkout and requires the rebuilt PDF to be byte-for-byte identical to the committed snapshot. Intermediate files are kept out of the repository.
 
 ## Theorem map
 
@@ -179,14 +179,14 @@ From the repository root:
 
 ```sh
 make pdf     # compile the six papers, two working notes, and the pinned Thorp paper
-make check   # verify source/PDF hashes, rebuild, compare PDF text, and check README links/math syntax
+make check   # verify hashes, rebuild PDFs byte-for-byte, and check README links/math syntax
 make test    # repository unit tests
 make verify  # run the exact finite Thorp audit in addition to the repository tests
 ```
 
 All canonical LaTeX sources are standalone except the pinned Thorp source, which includes its companion file. PDFs are committed under `output/pdf/`; intermediates stay in `.build/`. The [manifest](output/pdf/manifest.json) records source hashes, PDF hashes, and page counts.
 
-The README intentionally uses GitHub's dollar-delimited inline math and double-dollar display blocks. It defines no custom LaTeX macros: every command appearing here is standard LaTeX/MathJax syntax so the GitHub renderer does not depend on manuscript preambles.
+The README intentionally uses GitHub's dollar-delimited inline math and double-dollar display blocks. It defines no custom LaTeX macros. The repository linter uses an explicit allowlist for the TeX commands appearing here, so manuscript-only or unsupported commands such as `\\operatorname` cannot silently break GitHub rendering.
 
 ## Scripts
 
