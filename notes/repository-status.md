@@ -28,10 +28,22 @@ They compile and are retained as research branches, not silently promoted over t
 
 `third_party/openai-thorp/` is a pinned copy of OpenAI's 26 September 2026 preprint *Optimal-order mixing of the Thorp shuffle*. It is third-party material and is not represented as a Long-authored result. The exact finite program `scripts/thorp_moment_audit.cpp` checks a separate rooted cyclic-word identity for small dimensions; it is a finite consistency check, not a proof of the external asymptotic mixing theorem.
 
+## Recovery audit
+
+The repository sources were reconciled against the recovered Library copies used for this import.
+
+- Papers I, V, and VI match the recovered canonical source bytes exactly.
+- Papers II, III, and IV match the recovered canonical source after the single editorial change `\\author{} -> \\author{Christopher D. Long}`.
+- The functional Luce working branch differs from its recovered source only by the same author-line insertion.
+- The one-shuffle Edgeworth/optimality working branch matches its recovered source bytes exactly.
+- The historical mesoscopic total-cycle candidate and its audit remain in `notes/provenance/` and are not dependencies of the established manuscript spine.
+- The three OpenAI Thorp source files and Apache-2.0 license match the pinned upstream OpenAI commit exactly.
+
 ## Verification performed for this repository import
 
 - All six main Long manuscripts and both working branches compile with `latexmk` under TeX Live 2025 without undefined references, undefined citations, multiply defined labels, or overfull boxes. The residual-mass paper has two nonfatal underfull-box diagnostics.
 - First-page renders of all eight Long documents were inspected for title-page clipping, missing glyphs, and obvious layout failures.
 - The exact Thorp audit program verifies 156 identities for dimensions 2 through 5.
 - README math is linted to use GitHub dollar delimiters; custom manuscript macros and alternative TeX math delimiters are forbidden in the README.
-- The GitHub Actions workflow rebuilds the committed PDFs and compares extracted text, source hashes, PDF hashes, local links, and README math syntax.
+- Freshly compiled PDFs were compared with the recovered uploaded PDFs. Papers I, V, VI, and the one-shuffle Edgeworth working branch have identical extracted text; Papers II, III, IV, and the functional Luce branch differ only by the intentional author-line insertion described above.
+- The GitHub Actions workflow rebuilds every committed PDF from a clean checkout and requires byte-for-byte equality with the committed snapshot. It also verifies source hashes, PDF hashes, local links, and README math syntax.
