@@ -1,6 +1,6 @@
 # Nonuniform Random Permutations
 
-Research manuscripts on Luce/Tsetlin permutations and nonuniform card shuffles, including boundary and cycle laws, Poisson--Dirichlet universality, mesoscopic cycles, permutation order, riffle and shelf shuffles, and related Thorp-shuffle calculations.
+Research manuscripts on Luce/Tsetlin permutations, move-to-front/LRU orderings, and nonuniform card shuffles, including boundary and cycle laws, Poisson--Dirichlet universality, mesoscopic cycles, permutation order, riffle and shelf shuffles, and related Thorp-shuffle calculations.
 
 Author of the manuscripts in `papers/`: **Christopher D. Long**.
 
@@ -15,7 +15,8 @@ The repository separates current manuscripts, working branches, historical audit
 | III | An Erdős--Turán Law for Comparable-Rate Luce Permutations | [Read PDF](output/pdf/luce-erdos-turan.pdf) | [Source](papers/03-luce-erdos-turan/luce-erdos-turan.tex) |
 | IV | A Sharp Berry--Esseen Theorem and First Edgeworth Expansion for the Erdős--Turán Law of Comparable-Rate Luce Permutations | [Read PDF](output/pdf/luce-edgeworth.pdf) | [Source](papers/04-luce-edgeworth/luce-edgeworth.tex) |
 | V | Erdős--Turán Universality after One Shuffle | [Read PDF](output/pdf/one-shuffle-universality.pdf) | [Source](papers/05-one-shuffle-universality/one-shuffle-universality.tex) |
-| VI | Residual-Mass Transform Order for LRU Caching and the Coupon Collector | [Read PDF](output/pdf/residual-mass-transform-order.pdf) | [Source](papers/06-residual-mass-transform-order/residual-mass-transform-order.tex) |
+| VI | Radial Extremality for LRU Caching and the Fill--Holst Conjecture ([arXiv:2605.26107](https://arxiv.org/abs/2605.26107)) | [Read PDF](output/pdf/radial-lru-extremality.pdf) | [Source](papers/06-radial-lru-extremality/radial-lru-extremality.tex) |
+| VII | Residual-Mass Transform Order for LRU Caching and the Coupon Collector | [Read PDF](output/pdf/residual-mass-transform-order.pdf) | [Source](papers/07-residual-mass-transform-order/residual-mass-transform-order.tex) |
 
 The PDFs are committed deterministic snapshots compiled from the linked sources. CI rebuilds every document from a clean checkout and requires the rebuilt PDF to be byte-for-byte identical to the committed snapshot. Intermediate files are kept out of the repository.
 
@@ -113,9 +114,15 @@ The same cycle-index mechanism treats biased riffle shuffles under the stated no
 
 A later Edgeworth/optimality strengthening is retained as a working branch below rather than silently replacing this stable manuscript.
 
-### VI. Residual-mass transform order
+### VI. Radial LRU extremality and move-to-front tails
 
-For the size-biased prefix $S_C(p)$, put $Q_C(p)=1-p(S_C(p))$. The manuscript proves a radial transform-order theorem and connects the same residual mass to LRU miss probability and coupon-collector discovery time:
+[arXiv:2605.26107](https://arxiv.org/abs/2605.26107) proves that, for every nontrivial cache capacity, uniform popularity is the unique global minimizer of the exact stationary LRU hit rate. More sharply, every nonconstant straight-line ray away from the uniform popularity vector strictly increases the hit rate. In move-to-front language, the entire stationary search-cost distribution improves strictly in the usual stochastic order along such rays.
+
+The proof uses the exponential-age representation of the stationary LRU stack and gives an explicit positive pair-square formula for the radial derivative. The conclusion is deliberately radial: the full Fill--Holst Schur-concavity/majorization principle is false, while this raywise positivity survives.
+
+### VII. Residual-mass transform order
+
+For the size-biased prefix $S_C(p)$, put $Q_C(p)=1-p(S_C(p))$. This sequel strengthens Paper VI from the mean hit rate to a transform order for the full residual miss mass, and connects that same random variable to coupon-collector discovery time:
 
 $$
 \mathrm{MR}_{\mathrm{LRU}}(C;p)=\mathbb{E}Q_C(p),
@@ -132,7 +139,7 @@ This paper is adjacent to the permutation-cycle program but uses the same Placke
 | Functional Erdős--Turán Universality for Comparable-Rate Luce Permutations | Working functional/multivariate strengthening | [Read PDF](output/pdf/functional-luce-erdos-turan.pdf) | [Source](notes/working/functional-luce-erdos-turan.tex) |
 | Erdős--Turán, Berry--Esseen, and Edgeworth Universality after One Shuffle | Working Edgeworth/optimality strengthening | [Read PDF](output/pdf/one-shuffle-edgeworth-optimality.pdf) | [Source](notes/working/one-shuffle-edgeworth-optimality.tex) |
 
-These files are deliberately separated from the six main manuscripts so that exploratory strengthenings are not presented as settled replacements.
+These files are deliberately separated from the seven main manuscripts so that exploratory strengthenings are not presented as settled replacements.
 
 ## Mesoscopic total-cycle branch: audit status
 
@@ -178,7 +185,7 @@ sudo apt-get install latexmk texlive-latex-extra texlive-fonts-recommended texli
 From the repository root:
 
 ```sh
-make pdf     # compile the six papers, two working notes, and the pinned Thorp paper
+make pdf     # compile the seven papers, two working notes, and the pinned Thorp paper
 make check   # verify hashes, rebuild PDFs byte-for-byte, and check README links/math syntax
 make test    # repository unit tests
 make verify  # run the exact finite Thorp audit in addition to the repository tests
@@ -200,7 +207,7 @@ The repository tests are in [`tests/test_repository.py`](tests/test_repository.p
 ## Repository layout
 
 ```text
-papers/                     six current Long manuscripts
+papers/                     seven current Long manuscripts
 notes/working/              active strengthenings
 notes/provenance/           historical candidates and audits
 third_party/openai-thorp/   pinned external source and license
