@@ -42,7 +42,7 @@ def source_digest(path: Path) -> str:
 
 def check_readme_math() -> None:
     text = (ROOT / "README.md").read_text(encoding="utf-8")
-    for token in (r"\(", r"\)", r"\[", r"\]", r"\newcommand", r"\renewcommand", r"\def"):
+    for token in (r"\(", r"\)", r"\[", r"\]", r"\!", r"\newcommand", r"\renewcommand", r"\def"):
         if token in text:
             raise RuntimeError("README contains forbidden TeX syntax: " + token)
     for macro in (r"\Ee",r"\Pp",r"\TV",r"\Kol",r"\ord",r"\lcm",r"\dd",
