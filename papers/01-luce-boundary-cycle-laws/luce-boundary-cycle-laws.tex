@@ -497,7 +497,8 @@ $h=z-\mu$ and define the centered cumulant generating function
 For $\|\lambda\|\le\lambda_0$, its Hessian is
 $\nabla^2K(\lambda)=\Var_\lambda(Y)$ and is therefore between
 $c_0sI_d$ and $C_0sI_d$.  If $\|h\|=o(s)$, strong convexity shows that the
-minimum of $K(\lambda)-h\cdot\lambda$ over the ball$\|\lambda\|\le\lambda_0/2$ is attained in its interior for all large $n$.
+minimum of $K(\lambda)-h\cdot\lambda$ over the ball
+$\|\lambda\|\le\lambda_0/2$ is attained in its interior for all large $n$.
 Thus there is a unique $\lambda_h$ in that ball satisfying
 \[
         \nabla K(\lambda_h)=h,
@@ -996,7 +997,8 @@ on bounded intervals.  Thus \(A_{n,P}\) is strictly increasing, and the solution
 Uniform convergence of \(A_{n,P}\) to \(A\), together with the uniform continuity of \(\tau=A^{-1}\) on \([\delta/2,1-\delta/2]\), gives
 \[
         t_{n,a}^*=\tau(y_a)+o(1)=\tau(q_a/n)+o(1),
-\]uniformly.  Uniform convergence of \(B_{n,P}\) to \(B\) on \([c_\delta,C_\delta]\) gives the displayed convergence of derivatives.
+\]
+uniformly.  Uniform convergence of \(B_{n,P}\) to \(B\) on \([c_\delta,C_\delta]\) gives the displayed convergence of derivatives.
 
 Finally, \(\tau'(y)=1/A'(\tau(y))\).  Since \(A'\) is bounded above on \([c_\delta,C_\delta]\), \(\tau'\) is bounded below on \([\delta/2,1-\delta/2]\).  Moreover,
 \[
@@ -1495,7 +1497,8 @@ Fix \(\ell\ge1\), \(0<\beta<\alpha\), and \(0<\delta<1/2\).  Then, for all suffi
 \sum_{\substack{q_1,
 \ldots,q_\ell\ {\rm distinct}\\
 q_a\in E_{\delta,n}\ {\rm for\ some}\ a}}
-\sup_{p_1,\ldots,p_\ell}
+\sup_{p_1,
+\ldots,p_\ell}
 \Pp(\sigma_n(p_a)=q_a,1\le a\le\ell)
 \le C_{\ell,\beta}(\delta+\delta^\beta),
 \]
@@ -1994,7 +1997,8 @@ If $\nu_n\Rightarrow\nu$ weakly as finite measures on $[0,1]^2$, then
 
 \begin{proof}
 Fix $k\ge1$.  Expanding the factorial moment gives
-\[        \Ee(N(E_n))_k
+\[
+        \Ee(N(E_n))_k
         =\sum_{e_1,\ldots,e_k\in E_n}^{*}
         \Pp\bigl(\sigma_n(i_a)=j_a,
         1\le a\le k\bigr),
@@ -2493,7 +2497,8 @@ every rectangle, Cauchy's inequality gives
  =\frac{(\int_{J_a\times J_b}\rho)^2}{p_ap_b}
  \le\int_{J_a\times J_b}\rho^2.
 \]
-Summing and using Lemma \ref{lem:pd-kernel-contraction} proves the limitingversion of (6.2), and entrywise convergence gives its finite-$n$ form.  Finally,
+Summing and using Lemma \ref{lem:pd-kernel-contraction} proves the limiting
+version of (6.2), and entrywise convergence gives its finite-$n$ form.  Finally,
 the expected proportion of clocks exceeding $U$ is at most $e^{-U}$ because
 all rates are at least one; the slab law gives (6.3).  Since the partition is finite, choose deterministic $\delta_n\downarrow0$
 so that all convergence assertions hold with error at most $\delta_n$ on a
@@ -2992,7 +2997,8 @@ Fix a residual history and a distinguished remaining target $v$.  Explore the
 path from $v$.  At the $j$th opportunity to hit $v$, let $\lambda_j$ be the
 conditional probability, under the original residual matching law and given
 that $v$ has not yet been selected, that the next target is $v$.  Let
-$\Pp^\circ$ be the auxiliary law obtained by conditioning each such choice notto select $v$.  If $S(k)$ is the number of closure opportunities among the
+$\Pp^\circ$ be the auxiliary law obtained by conditioning each such choice not
+to select $v$.  If $S(k)$ is the number of closure opportunities among the
 first $k$ completed edges, then
 \begin{equation}
         \Pp(|\mathcal C(v)|>k\mid\mathcal H,v)
@@ -3491,7 +3497,8 @@ give, for every fixed $k$,
 \end{align}
 Because $0\le R_{n,k}\le1$,
 \[
-        \Ee R_{n,k}\longrightarrow2^{-k}.\]
+        \Ee R_{n,k}\longrightarrow2^{-k}.
+\]
 Thus, for every $\epsilon>0$,
 \[
  \limsup_{n\to\infty}\Pp(R_{n,k}>\epsilon)
@@ -3990,7 +3997,8 @@ For a single summand \(Y\), write \(p_x=\Pp(Y=x)\).  If two atoms
         |e^{iu\cdot y}-e^{iu\cdot z}|^2  \\
         &\ge c_0^2 |1-e^{iu_j}|^2
         \ge c\,\operatorname{dist}(u_j,2\pi\mathbb Z)^2 .
-\end{aligned}\]
+\end{aligned}
+\]
 After decreasing \(c\), this gives
 \[
         |\Ee e^{iu\cdot Y}|
@@ -4489,7 +4497,8 @@ For the lower-tail assertion, use the preceding bound and
         +C\delta^2\sum_{j\in B}\mu_j .
 \end{aligned}
 \]
-Decrease \(\delta_0\), if necessary, so that \(C\delta_0\le1/4\), and thenchoose \(L_0\) so that \(C_0/L\le1/4\).  The last display is at most
+Decrease \(\delta_0\), if necessary, so that \(C\delta_0\le1/4\), and then
+choose \(L_0\) so that \(C_0/L\le1/4\).  The last display is at most
 \(-\delta\sum_{j\in B}\mu_j/2\).
 
 For the upper-tail assertion, the same cumulant bound and
@@ -4988,7 +4997,8 @@ integer tuples $(n,a_1,\ldots,a_r)$ satisfying
 \]
 Then
 \[
-\begin{aligned}\lim_{L\to\infty}\limsup_{N\to\infty}
+\begin{aligned}
+\lim_{L\to\infty}\limsup_{N\to\infty}
 \sup_{(n,a)\in\mathfrak A_N(\eta)}
 &\frac{1}{\prod_{j=1}^r a_j^{-1}}
 \int_{\substack{t_1>\cdots>t_r\\
@@ -5487,6 +5497,7 @@ vague topology.  Equivalently, counts in finitely many disjoint bounded
 intervals converge jointly to independent Poisson random variables with means
 \(e^{-1}\) times their lengths.
 \end{theorem}
+
 \begin{proof}
 It suffices to prove convergence of mixed factorial moments.  If \(\log(a/b_n)\in J\), then \(a\to\infty\), \(a=o(n)\), and all such \(a\)'s are within a bounded multiplicative factor.  Also
 \[
@@ -5987,6 +5998,7 @@ and ratio separation gives
 \tag{8.5}\label{eq:endpoint-interval-target-scale}
 \]
 for all sufficiently large \(N\).
+
 \begin{lemma}[Endpoint Gumbel saddle geometry]
 \label{lem:endpoint-gumbel-saddle}
 For each \(j\), the equation
@@ -6485,7 +6497,8 @@ saddle vectors for large \(N\), there are \(C_K,c_K>0\) such that, throughout
 \end{enumerate}
 \end{lemma}
 
-\begin{proof}Choose \(L\) so that \(K\subset[-L,L]^r\).  With no offenders, the proof of
+\begin{proof}
+Choose \(L\) so that \(K\subset[-L,L]^r\).  With no offenders, the proof of
 Lemma \ref{lem:endpoint-mixed-localization} gives
 \eqref{eq:endpoint-compact-localization}; equivalently, apply
 \eqref{eq:endpoint-mixed-cumulative-bound} with \(G=\{1,\ldots,r\}\).
@@ -6984,7 +6997,8 @@ $b_n=o(n)$, and put
 \]
 Each \(\mathcal M_n^{(b_n)}\) is a Radon measure on compact subsets of
 \((0,\infty)^2\), and the density \(\mathcal K_\gamma\) is locally
-integrable there.  Then, vaguely in probability on $(0,\infty)^2$,\[
+integrable there.  Then, vaguely in probability on $(0,\infty)^2$,
+\[
         \mathcal M_n^{(b_n)}
         \longrightarrow
         \mathcal K_\gamma(x,y)\dd x\dd y.
@@ -7483,7 +7497,8 @@ If
 \]
 is the product-exponential density, then
 \[
-        \frac{\dd\nu_a}{\dd t}        =\one_{\{I_a=1\}}f(t)R_a(t),
+        \frac{\dd\nu_a}{\dd t}
+        =\one_{\{I_a=1\}}f(t)R_a(t),
         \qquad
         \frac{\dd\mu_a^\star}{\dd t}
         =\frac{\one_{\{I_a=1\}}}{p_a}f(t).
@@ -7982,7 +7997,8 @@ $T_a=t$, define
 Thus $I_a=1$ is the event $N(t)=k$.  For $b\ne a$, put
 \[
         H_b(t,T_b)=
-        \exp\{-(\lambda_a-\lambda_b)(T_b-t)\},        \qquad H_a=1,
+        \exp\{-(\lambda_a-\lambda_b)(T_b-t)\},
+        \qquad H_a=1,
 \]
 so that $R_a=\sum_bH_b$.
 
@@ -8481,6 +8497,7 @@ on the saddle scale.  Second, a death-process envelope localizes every fixed
 cycle component in logarithmic coordinates, including components crossing the
 mesoscopic cutoff.  Third, a logarithmic trace Riemann sum identifies the
 coefficient $k_\gamma^{*r}(0)/r$.
+
 \subsection{General endpoint point constraints}
 
 For fixed $\ell\ge1$, $\eta>0$, and $M<\infty$, define
@@ -8980,7 +8997,8 @@ $C_A(q_j^{-1/2}+q_k^{-1/2})\le2C_Aq_1^{-1/2}$.  Since $\ell$ is fixed,
 \eqref{eq:endpoint-point-covariance-stability} follows.  The normalized
 covariance matrices remain in a compact subset of the positive-definite
 matrices by \eqref{eq:endpoint-point-covariance-comparison}; continuity of
-determinant and inversion gives\eqref{eq:endpoint-point-determinant-stability}--
+determinant and inversion gives
+\eqref{eq:endpoint-point-determinant-stability}--
 \eqref{eq:endpoint-point-inverse-stability}.
 \end{proof}
 
@@ -9479,7 +9497,8 @@ as $\Omega_{U_n}(\Gamma)$.  Corollary
 \eqref{eq:component-harmonic-volume} give, after decomposing
 $\Omega\in[k,k+1)$,
 \[
-\begin{aligned}&\sum_{\substack{\Gamma:\ V(\Gamma)\subset[L_n,U_n]\\
+\begin{aligned}
+&\sum_{\substack{\Gamma:\ V(\Gamma)\subset[L_n,U_n]\\
                   \Omega(\Gamma)>M}}
 \Pp(E_\Gamma)\\
 &\qquad\le C_LT_n^m
@@ -9978,7 +9997,8 @@ K. S. Brown and P. Diaconis.
 S. Chatterjee, P. Diaconis, and G. B. Kim.
 \newblock Enumerative theory for the Tsetlin library.
 \newblock \emph{Journal of Algebra} 655 (2024), 139--162.
-\newblock \href{https://doi.org/10.1016/j.jalgebra.2023.08.009}{doi:10.1016/j.jalgebra.2023.08.009}.
+\newblock \href{https://doi.org/10.1016/j.jalgebra.2023.08.009}
+{doi:10.1016/j.jalgebra.2023.08.009}.
 
 \bibitem{DeuschelZeitouni1999}
 J.-D. Deuschel and O. Zeitouni.

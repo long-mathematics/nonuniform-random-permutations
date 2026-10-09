@@ -497,7 +497,8 @@ separated bulk constraints $(p_a,q_a)$, $a\le\ell$ fixed,
 {Lon26}: the operator $K$ with kernel \eqref{eq:permuton} is bistochastic and
 Hilbert--Schmidt, with eigenvalues $1=\mu_1>\lvert\mu_2\rvert\ge\cdots$
 satisfying $\lvert\mu_i\rvert\le q$ for $i\ge2$ and some $q=q(f)\in(0,1)$;
-with $\lambda_r=\Tr(K^r)/r$,\begin{equation}\label{eq:trace-gap}
+with $\lambda_r=\Tr(K^r)/r$,
+\begin{equation}\label{eq:trace-gap}
 r\lambda_r\;=\;1+O(q^r),\qquad
 \sum_{r=1}^\infty\Bigl|\lambda_r-\frac1r\Bigr|<\infty,\qquad
 \kappa_f\;=\;\gE-\sum_{i\ge2}\log(1-\mu_i).
@@ -997,6 +998,7 @@ error used in Section~\ref{sec:expectation}.
 \end{remark}
 
 \section{Iterated residual exploration and the joint local law}\label{sec:joint}
+
 \subsection{Residual stability}
 The framework of Section~\ref{sec:prelim} is stable under the deletion of
 completely explored cycles, because a cycle intersects each row in as many
@@ -1495,7 +1497,8 @@ Theorem~\ref{thm:expectation} therefore predicts
 $\E N_n^{\cyc}=\log n+0.4410+o(1)$. Direct simulation of the Luce
 permutation ($6000$ trials per $n$, cycles counted by pointer doubling)
 gives:
-\[\begin{array}{c|cccc}
+\[
+\begin{array}{c|cccc}
 n & 500 & 1000 & 2000 & 4000\\\hline
 \E N_n^{\cyc} & 6.64 & 7.37 & 8.04 & 8.74\\
 \log n+\kappa_f & 6.66 & 7.35 & 8.04 & 8.74\\
