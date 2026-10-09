@@ -85,8 +85,7 @@ $$
 \mathbb{P}\left(
 \frac{\log O_n-m_n}{\sqrt{L^3/3}}\le x
 \right)
-=
-\Phi(x)-\frac{\sqrt3}{8}(x^2-1)\varphi(x)L^{-1/2}
+= \Phi(x)-\frac{\sqrt3}{8}(x^2-1)\varphi(x)L^{-1/2}
 +o_\kappa(L^{-1/2}).
 $$
 
