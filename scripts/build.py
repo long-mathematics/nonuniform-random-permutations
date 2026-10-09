@@ -58,11 +58,25 @@ def check_readme_math() -> None:
         )
     if text.count("$$") % 2:
         raise RuntimeError("README has unmatched display-math delimiter")
+    in_display = False
     for line in text.splitlines():
-        if line.strip() == "$":
+        stripped = line.strip()
+        if stripped == "$":
             raise RuntimeError("README has a standalone single-dollar delimiter")
-        if "$$" in line and line.strip() != "$$":
+        if "$" in line and stripped != "$":
             raise RuntimeError("README display delimiter must occupy its own line: " + line)
+        if stripped == "$":
+            in_display = not in_display
+            continue
+        if in_display:
+            if stripped in {"=", "-", "---"}:
+                raise RuntimeError(
+                    "README display contains a Markdown structural line: " + line
+                )
+            if re.match(r"^[+*-]\\s+", stripped):
+                raise RuntimeError(
+                    "README display contains a Markdown list marker: " + line
+                )
 
 def check_readme_links() -> None:
     text = (ROOT / "README.md").read_text(encoding="utf-8")
