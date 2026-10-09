@@ -59,6 +59,8 @@ def check_readme_math() -> None:
     if text.count("$$") % 2:
         raise RuntimeError("README has unmatched display-math delimiter")
     for line in text.splitlines():
+        if line.strip() == "$":
+            raise RuntimeError("README has a standalone single-dollar delimiter")
         if "$$" in line and line.strip() != "$$":
             raise RuntimeError("README display delimiter must occupy its own line: " + line)
 
