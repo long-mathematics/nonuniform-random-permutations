@@ -60,7 +60,7 @@ The final free-depth version proves its short-root estimate internally and does 
 For arbitrary comparable-rate triangular arrays, with no limiting profile assumption,
 
 $$
-\frac{\log\operatorname{ord}(\sigma_n)-\frac12(\log n)^2}
+\frac{\log\mathrm{ord}(\sigma_n)-\frac12(\log n)^2}
 {\sqrt{\frac13(\log n)^3}}
 \Rightarrow N(0,1).
 $$
@@ -69,7 +69,7 @@ The proof combines the switching theory with an arithmetic product-to-least-comm
 
 ### IV. Sharp normal approximation and first Edgeworth term
 
-Writing $O_n=\operatorname{ord}(\sigma_n)$, $m_n=\mathbb{E}\log O_n$, and $L=\log n$, the quantitative supplement proves
+Writing $O_n=\mathrm{ord}(\sigma_n)$, $m_n=\mathbb{E}\log O_n$, and $L=\log n$, the quantitative supplement proves
 
 $$
 \mathrm{d}_{\mathrm K}\!\left(
@@ -96,7 +96,7 @@ Thus the $L^{-1/2}$ Kolmogorov order is optimal. The theorem uses the exact mean
 Paper V proves a functional Erdős--Turán universality theorem for several nonexchangeable models after a single shuffle. In particular, if $\rho_n$ is obtained from the identity by one ordinary Gilbert--Shannon--Reeds $2$-riffle shuffle, then
 
 $$
-\frac{\log\operatorname{ord}(\rho_n)-\frac12(\log n)^2}
+\frac{\log\mathrm{ord}(\rho_n)-\frac12(\log n)^2}
 {\sqrt{\frac13(\log n)^3}}
 \Rightarrow N(0,1),
 $$
@@ -105,7 +105,7 @@ even though
 
 $$
 \mathrm{d}_{\mathrm{TV}}\!\left(
-\mathcal{L}(\rho_n),\operatorname{Unif}(S_n)
+\mathcal{L}(\rho_n),\mathrm{Unif}(S_n)
 \right)\longrightarrow1.
 $$
 
@@ -118,7 +118,7 @@ A later Edgeworth/optimality strengthening is retained as a working branch below
 For the size-biased prefix $S_C(p)$, put $Q_C(p)=1-p(S_C(p))$. The manuscript proves a radial transform-order theorem and connects the same residual mass to LRU miss probability and coupon-collector discovery time:
 
 $$
-\operatorname{MR}_{\mathrm{LRU}}(C;p)=\mathbb{E}Q_C(p),
+\mathrm{MR}_{\mathrm{LRU}}(C;p)=\mathbb{E}Q_C(p),
 \qquad
 \mathbb{E}_p[T_{C+1}-T_C]=\mathbb{E}Q_C(p)^{-1}.
 $$
