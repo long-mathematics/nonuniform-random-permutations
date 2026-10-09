@@ -37,7 +37,14 @@
       "pages": 21
     },
     {
-      "source": "papers/06-residual-mass-transform-order/residual-mass-transform-order.tex",
+      "source": "papers/06-radial-lru-extremality/radial-lru-extremality.tex",
+      "source_sha256": "c1ffb0da2089c72c6eddb4e5c59a65d446cbd38311408f150076410b29c27b76",
+      "pdf": "output/pdf/radial-lru-extremality.pdf",
+      "pdf_sha256": "9dff04a6d1a2c2b6ea565aa43b0eb9d0402958f40406b1c1fcdb1f3fc1c26a9c",
+      "pages": 13
+    },
+    {
+      "source": "papers/07-residual-mass-transform-order/residual-mass-transform-order.tex",
       "source_sha256": "676bb6e1fb1c0774a50e7e2781ca0f6e5e70da8b868e00f4f673e5c7eb4a1a7b",
       "pdf": "output/pdf/residual-mass-transform-order.pdf",
       "pdf_sha256": "00781c873af81ade2d45887f76683baad1985da38f95fe190ba372e8d169ef54",
