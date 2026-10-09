@@ -10,7 +10,13 @@ OUTPUT = ROOT / "output" / "pdf"
 MANIFEST = OUTPUT / "manifest.json"
 BUILD = ROOT / ".build"
 
-README_ALLOWED_COMMANDS = {\n    "Phi", "Rightarrow", "Theta", "frac", "infty", "kappa", "lambda", "le",\n    "left", "log", "longrightarrow", "mathbb", "mathcal", "mathrm", "qquad",\n    "rho", "right", "sigma", "sim", "sqrt", "text", "to", "varphi",\n}\n\nDOCUMENTS = [
+README_ALLOWED_COMMANDS = {
+    "Phi", "Rightarrow", "Theta", "frac", "infty", "kappa", "lambda", "le",
+    "left", "log", "longrightarrow", "mathbb", "mathcal", "mathrm", "qquad",
+    "rho", "right", "sigma", "sim", "sqrt", "text", "to", "varphi",
+}
+
+DOCUMENTS = [
     ("papers/01-luce-boundary-cycle-laws/luce-boundary-cycle-laws.tex", "luce-boundary-cycle-laws.pdf"),
     ("papers/02-mesoscopic-luce-cycles/mesoscopic-luce-cycles.tex", "mesoscopic-luce-cycles.pdf"),
     ("papers/03-luce-erdos-turan/luce-erdos-turan.tex", "luce-erdos-turan.pdf"),
@@ -43,7 +49,13 @@ def check_readme_math() -> None:
                   r"\PD",r"\GEM",r"\cL",r"\R",r"\N",r"\one",r"\Pois"):
         if re.search(re.escape(macro) + r"(?![A-Za-z])", text):
             raise RuntimeError("README contains unexpanded manuscript macro: " + macro)
-    if text.count("$$") % 2:
+    commands = set(re.findall(r"\\([A-Za-z]+)", text))
+    unsupported = sorted(commands - README_ALLOWED_COMMANDS)
+    if unsupported:
+        raise RuntimeError(
+            "README contains unsupported/unreviewed TeX command(s): " + ", ".join(unsupported)
+        )
+    if text.count("$") % 2:
         raise RuntimeError("README has unmatched display-math delimiter")
     for line in text.splitlines():
         if "$$" in line and line.strip() != "$$":
@@ -134,9 +146,18 @@ def main() -> None:
             print("  Nonfatal typography diagnostic: "+line)
         committed=OUTPUT/name
         if args.check:
-            if pdf_text(built) != pdf_text(committed):
-                raise RuntimeError("Rebuilt PDF text differs; run make pdf: "+name)
-            pdfhash=digest(committed)
+            freshhash=digest(built)
+            committedhash=digest(committed)
+            if freshhash != committedhash:
+                if pdf_text(built) != pdf_text(committed):
+                    raise RuntimeError("Rebuilt PDF content differs; run make pdf: "+name)
+                raise RuntimeError(
+                    "Rebuilt PDF bytes differ despite matching extracted text; "
+                    "refresh the deterministic snapshot with make pdf: "+name
+                )
+            if freshhash != rec["pdf_sha256"]:
+                raise RuntimeError("Rebuilt PDF hash disagrees with manifest: "+name)
+            pdfhash=freshhash
         else:
             pdfhash=digest(built); copies.append((built,committed))
         records.append({"source":rel,"source_sha256":source_digest(source),
