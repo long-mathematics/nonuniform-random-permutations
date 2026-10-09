@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "source": "papers/01-luce-boundary-cycle-laws/luce-boundary-cycle-laws.tex",
+      "source_sha256": "05e7198d1a978aa3146d400b4a0427e9c32813659df590482bb84422cabb706b",
+      "pdf": "output/pdf/luce-boundary-cycle-laws.pdf",
+      "pdf_sha256": "f4e6cdad65fc33134efe02995ab82391600f99f27d20683db705344e52f227b6",
+      "pages": 139
+    },
+    {
+      "source": "papers/02-mesoscopic-luce-cycles/mesoscopic-luce-cycles.tex",
+      "source_sha256": "62dc5b870a9cd5b1b6a13f7602c6ade32fb1bd9ef5e849c98686ec39a8e7d18b",
+      "pdf": "output/pdf/mesoscopic-luce-cycles.pdf",
+      "pdf_sha256": "dcd65c8a2c1bbe3c513d565162961f7a9a8f6606ed82433082bae517f492e475",
+      "pages": 27
+    },
+    {
+      "source": "papers/03-luce-erdos-turan/luce-erdos-turan.tex",
+      "source_sha256": "d2601114c379f386459c6dea2d646a6c76a956e94cb0440cbe64ab13f3341bba",
+      "pdf": "output/pdf/luce-erdos-turan.pdf",
+      "pdf_sha256": "f295adff37ffae3f5256d7832f4428bea3ca1c1e0ed059e27edfc1cd97b4ae78",
+      "pages": 15
+    },
+    {
+      "source": "papers/04-luce-edgeworth/luce-edgeworth.tex",
+      "source_sha256": "78a80f5d840278d323764c0e8d843e9828658a5f59153382dcb84458c011fb3f",
+      "pdf": "output/pdf/luce-edgeworth.pdf",
+      "pdf_sha256": "726d673019685028cd6ea6509eb7cf5a77c03492482ec640bfe6161a30ab7e59",
+      "pages": 39
+    },
+    {
+      "source": "papers/05-one-shuffle-universality/one-shuffle-universality.tex",
+      "source_sha256": "5eb13e30a7e3d3d594b214b532b2f30d66f35a93cbf349109cfe3f1028412108",
+      "pdf": "output/pdf/one-shuffle-universality.pdf",
+      "pdf_sha256": "238a4979a3dd530fd78ec26c9d131a5b97b4eccda18b28ca2ace04efd24f50e4",
+      "pages": 21
+    },
+    {
+      "source": "papers/06-residual-mass-transform-order/residual-mass-transform-order.tex",
+      "source_sha256": "82d4bb569fc8cb1ae156cbdb1de3272cb30362fd66462b568338f9f7b1edb8ed",
+      "pdf": "output/pdf/residual-mass-transform-order.pdf",
+      "pdf_sha256": "e71af34d336d1146fdfe771f5ab40330bdacc89799a823bbdcc9a910e41599d3",
+      "pages": 14
+    },
+    {
+      "source": "notes/working/functional-luce-erdos-turan.tex",
+      "source_sha256": "5cf3fa3e2b96e6a4b01c689f2b7b37d05160160ec28b1d2bacf040e4c7368464",
+      "pdf": "output/pdf/functional-luce-erdos-turan.pdf",
+      "pdf_sha256": "f1804d8c1ea19905223de53babc41b67a49553fdd615b3a0453cf05a0adac653",
+      "pages": 21
+    },
+    {
+      "source": "notes/working/one-shuffle-edgeworth-optimality.tex",
+      "source_sha256": "96faf9f99e713655a98275900b10d0466a34de260eb2c0a47c99983389094c76",
+      "pdf": "output/pdf/one-shuffle-edgeworth-optimality.pdf",
+      "pdf_sha256": "bf273e80438a58f13f31e4f63e5317e29831e5633f7990bc119acd8db6037bdb",
+      "pages": 27
+    },
+    {
+      "source": "third_party/openai-thorp/main.tex",
+      "source_sha256": "af7b452bac2d87f8cad6829b147140f81ad0b260d387a61e4271ee15c87d477b",
+      "pdf": "output/pdf/openai-thorp-mixing.pdf",
+      "pdf_sha256": "b96e649ecae2e7114e500b7bfce5789dc304aed88ddaa470d52a3820b5b21f7a",
+      "pages": 14
+    }
+  ]
+}
