@@ -1,0 +1,934 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\title{Residual-Mass Transform Order for LRU Caching\ and the Coupon Collector}
+\author{Christopher D. Long}
+\date{June 2026}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pbb}{\mathbb P}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\dd}{\,d}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\DeltaN}{\Delta_N}
+\newcommand{\Exp}{\operatorname{Exp}}
+\newcommand{\MR}{\operatorname{MR}}
+\newcommand{\Hit}{\operatorname{Hit}}
+\newcommand{\Var}{\operatorname{Var}}
+
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For the independent reference model with a positive popularity vector
+$p\in\Delta_N^\circ$, let $S_C(p)$ be the first $C$ distinct items in size-biased order,
+equivalently the stationary LRU cache set of capacity $C$.  Put
+\[
+        M_C(p)=p(S_C(p)),\qquad Q_C(p)=1-M_C(p).
+\]
+Thus $M_C$ is the random cached mass and $Q_C$ is the random residual miss mass.
+We prove a finite-dimensional radial transform-order theorem.  Along every nonconstant
+ray $p_\theta=u+\theta(p-u)$ from the uniform law, $M_C(p_\theta)$ is increasing in
+increasing-convex order.  Equivalently, for every decreasing convex cost $\psi$,
+\[
+        \theta\mapsto \E\psi(Q_C(p_\theta))
+\]
+is nondecreasing, and is strict for the natural strictly monotone costs.  The proof is a
+pathwise crossing argument using a common Gumbel representation of the Plackett--Luce
+size-biased order: higher-than-uniform coordinates can only overtake lower-than-uniform
+coordinates as $\theta$ increases.
+
+The result simultaneously strengthens radial LRU extremality and gives a new exact
+coupon-collector transfer principle.  In LRU, it implies monotonicity not only of the
+mean hit and miss rates but also of no-miss survival probabilities.  In coupon collecting,
+it implies that every one-step discovery increment $T_{C+1}-T_C$ is radially increasing
+in stochastic order, and that
+\[
+        \theta\mapsto \E Q_C(p_\theta)^{-s}
+\]
+is strictly increasing for all $s>0$.  The exact residual-mass identities
+\[
+        \MR_{LRU}(C;p)=\E Q_C(p),
+        \qquad
+        \E_p[T_{C+1}-T_C]=\E Q_C(p)^{-1}
+\]
+therefore become two projections of a single ordered residual-hazard law.  This clarifies
+and strengthens the asymptotic LRU--coupon-collector relation of Berthet.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+
+The independent reference model (IRM) is the standard model in which successive requests
+are independent with common law
+\[
+        p=(p_1,\ldots,p_N)\in\Delta_N^\circ,
+        \qquad
+        p_i>0,
+        \qquad
+        \sum_i p_i=1.
+\]
+The same popularity vector governs two classical objects.
+
+First, for an LRU cache of capacity $C$, the stationary cache set is the set of the first
+$C$ distinct items encountered when scanning the IRM sequence backwards from stationarity.
+Equivalently, it is the set of the first $C$ items in a size-biased permutation with
+weights $p$.  Second, in the coupon collector, the set of the first $C$ distinct coupons
+seen in a forward run has the same size-biased distribution.  Thus both models share the
+same random prefix set $S_C$.
+
+The central random variable of this paper is the residual mass
+\[
+        Q_C=1-p(S_C).
+\]
+Its complement
+\[
+        M_C=p(S_C)
+\]
+is the random mass already represented in the size-biased prefix.  In LRU language,
+$M_C$ is the conditional hit probability given the current cache set and $Q_C$ is the
+conditional miss probability.  In coupon-collector language, $Q_C$ is the conditional
+success probability for discovering a new coupon after $C$ distinct coupons have already
+been collected.
+
+The exact identities
+\begin{equation}\label{eq:basic-identities-intro}
+        \MR_{LRU}(C;p)=\E Q_C(p),
+        \qquad
+        \E_p[T_{C+1}-T_C]=\E Q_C(p)^{-1}
+\end{equation}
+are elementary, but they are structurally revealing.  They show that the LRU miss rate
+and the coupon-collector waiting increment are the positive and reciprocal first moments
+of the same random residual mass.  The product relation
+\[
+        \MR_{LRU}(C;p)\,\E_p[T_{C+1}-T_C]
+        =\E Q_C\,\E Q_C^{-1}\ge 1
+\]
+is therefore a Jensen gap.  Equality holds at uniform popularity; away from uniform it
+measures dispersion of the residual mass.
+
+Berthet \cite{Berthet2017} derived and emphasized an asymptotic relation of the form
+\[
+        \MR_{LRU}(C;p)\,\bigl(\E T_{C+1}-\E T_C\bigr)\approx 1
+\]
+between LRU miss rates and coupon-collector waiting-time increments.  The identities
+above show that the approximation is best understood as a concentration statement for
+$Q_C$, not as an exact reciprocal relation between the two expectations.  The present
+paper strengthens this viewpoint by proving a transform-order theorem for $Q_C$ along
+rays from uniform.
+
+Let
+\[
+        u=(1/N,\ldots,1/N),\qquad
+        p_\theta=u+\theta(p-u),\qquad 0\le \theta\le 1.
+\]
+Our main result says that, for every $1\le C\le N-1$, the cached mass
+$M_C(p_\theta)$ is increasing in increasing-convex order.  Equivalently, for every
+decreasing convex function $\psi$,
+\[
+        \theta\mapsto \E\psi(Q_C(p_\theta))
+\]
+is nondecreasing.  This single statement gives, among other consequences,
+\[
+        \E Q_C(p_\theta)\downarrow,
+        \qquad
+        \E e^{-\lambda Q_C(p_\theta)}\uparrow,
+        \qquad
+        \E Q_C(p_\theta)^{-s}\uparrow,
+        \qquad
+        \E Q_C(p_\theta)^r\downarrow\quad(0<r\le1).
+\]
+Thus the LRU miss cost $q$ and the coupon-collector reciprocal cost $q^{-1}$ are two
+special costs in a larger ordered family.
+
+\subsection*{Relation to earlier LRU radial extremality}
+
+A previous paper \cite{LongLRU2026} proved that the exact stationary LRU hit rate
+$\Hit_C(p)=\E M_C(p)$ is strictly increasing along every nonconstant ray from uniform.
+That result used the exponential-age representation of LRU and produced an explicit
+positive pair-square radial derivative formula.  It also established the radial
+restriction of the Fill--Holst conjecture for move-to-front search-cost tails and
+explained why full Schur-convexity fails.
+
+The present theorem strictly extends the conclusion of \cite{LongLRU2026}: the hit-rate
+monotonicity is the linear case $\phi(x)=x$ of increasing-convex order for $M_C$.
+However, the earlier positive-kernel proof still has independent value.  It gives an
+explicit local derivative certificate and computable pair kernels; it also isolates the
+finite-dimensional algebraic positivity that survives on rays even though arbitrary
+majorization directions can fail.  The Gumbel crossing method developed here gives a
+shorter and stronger global order theorem, while the pair-kernel proof remains useful for
+sensitivity analysis, local certificates, and transfer to models where a common-Gumbel
+ranking representation is unavailable.
+
+\subsection*{Related work}
+
+Flajolet, Gardy and Thimonier \cite{FlajoletGardyThimonier1992} gave a unified analytic
+framework for the birthday paradox, coupon collectors, caching algorithms and
+self-organizing search under general nonuniform distributions.  Exact and asymptotic LRU
+analysis under the IRM goes back at least to King, Fagin and Fagin--Price
+\cite{King1971,Fagin1977,FaginPrice1978}, with later asymptotic work on move-to-front
+and LRU fault probabilities by Jelenkovic \cite{Jelenkovic1999}.  Che, Tung and Wang
+\cite{CheTungWang2002} introduced the characteristic-time approximation that is now a
+standard engineering approximation for LRU.  Boneh and Hofri \cite{BonehHofri1997}
+surveyed coupon-collector formulae and computational methods.  Anceaume, Busnel,
+Schulte-Geers and Sericola \cite{AnceaumeBusnelSericola2016} proved stochastic
+optimization results for generalized coupon collection, including almost-uniform
+minimization for the time to collect a fixed number of distinct coupons.
+
+The present contribution is different in focus: it identifies an exact finite-$N$
+residual-hazard law common to LRU and the coupon collector, and proves a radial transform
+order for that law.
+
+\section{Size-biased order, LRU, and coupon collection}
+
+\subsection{Size-biased permutations}
+
+Let $p\in\Delta_N^\circ$.  A size-biased permutation with weights $p$ is the random
+permutation $(\Pi_1,\ldots,\Pi_N)$ satisfying
+\begin{equation}\label{eq:pl-law}
+        \Pbb(\Pi_1=i_1,\ldots,\Pi_N=i_N)
+        =\prod_{r=1}^N \frac{p_{i_r}}{1-\sum_{s<r}p_{i_s}},
+\end{equation}
+for every ordering $(i_1,\ldots,i_N)$ of $[N]$.  This is the
+Plackett--Luce distribution.
+
+For $0\le C\le N$, put
+\[
+        S_C=\{\Pi_1,\ldots,\Pi_C\},
+\]
+with $S_0=\varnothing$ and $S_N=[N]$.  Define
+\[
+        M_C=p(S_C)=\sum_{i\in S_C}p_i,
+        \qquad
+        Q_C=1-M_C.
+\]
+The nontrivial capacities are $1\le C\le N-1$.  At $C=0$, $Q_0=1$; at $C=N$,
+$Q_N=0$.
+
+\begin{lemma}[Exponential and Gumbel representations]\label{lem:gumbel}
+Let $E_1,\ldots,E_N$ be independent exponential random variables with rate one.  Then the
+increasing order of
+\[
+        A_i=\frac{E_i}{p_i}
+\]
+has the size-biased law \eqref{eq:pl-law}.  Equivalently, if
+\[
+        G_i=-\log E_i,
+\]
+then $G_i$ are independent standard Gumbel variables, and the decreasing order of
+\[
+        Y_i=G_i+\log p_i
+\]
+has the size-biased law.
+\end{lemma}
+
+\begin{proof}
+The variables $A_i$ are independent exponentials with rates $p_i$.  The first clock to
+ring has label $i$ with probability $p_i/\sum_jp_j=p_i$.  Conditional on the first label,
+the residual clocks of the unchosen items are independent exponentials with their original
+rates, by memorylessness.  Iterating gives \eqref{eq:pl-law}.  Since increasing order of
+$E_i/p_i$ is the same as decreasing order of $-\log E_i+\log p_i$, the Gumbel form follows.
+\end{proof}
+
+\subsection{LRU cache sets}
+
+Under the IRM, scan the stationary request sequence backwards from a reference time.  The
+first distinct item encountered is distributed as $p$.  Given that a set $A$ has already
+been encountered, the next new item is $i\notin A$ with probability
+\[
+        \frac{p_i}{1-p(A)}.
+\]
+Therefore the backward order of distinct items is a size-biased permutation.  The LRU
+cache of capacity $C$ contains exactly the first $C$ distinct items in this backward scan.
+Thus its stationary cache set has the same law as $S_C$.
+
+Consequently,
+\begin{equation}\label{eq:lru-hit-miss}
+        \Hit_{LRU}(C;p)=\E M_C(p),
+        \qquad
+        \MR_{LRU}(C;p)=\E Q_C(p).
+\end{equation}
+Moreover, conditional on the stationary cache set, the next request hits with probability
+$M_C$ and misses with probability $Q_C$.  Hence, in discrete time,
+\begin{equation}\label{eq:no-miss-discrete}
+        \Pbb(\hbox{the next } n \hbox{ requests are all LRU hits})
+        =\E M_C^n,
+        \qquad n\ge0.
+\end{equation}
+In the rate-one Poissonized IRM,
+\begin{equation}\label{eq:no-miss-continuous}
+        \Pbb(\hbox{no LRU miss before time }t)=\E e^{-tQ_C}.
+\end{equation}
+
+\subsection{Coupon-collector increments}
+
+Let $T_C$ be the number of draws needed to have seen $C$ distinct coupon types, with
+$T_0=0$.  The set of the first $C$ collected types is distributed as $S_C$.  Conditional on
+$S_C$, the probability that the next draw is a new coupon is $Q_C$.  Therefore
+\[
+        Y_C:=T_{C+1}-T_C
+\]
+is conditionally geometric on $\{1,2,\ldots\}$ with success probability $Q_C$:
+\begin{equation}\label{eq:geom-survival}
+        \Pbb(Y_C>n\mid S_C)=(1-Q_C)^n=M_C^n,
+        \qquad n\ge0.
+\end{equation}
+Thus
+\begin{equation}\label{eq:increment-mean}
+        \E[Y_C]=\E Q_C^{-1}.
+\end{equation}
+In the Poissonized coupon collector, the corresponding waiting time from $C$ to $C+1$
+distinct coupons is conditionally exponential with rate $Q_C$, and therefore has survival
+\begin{equation}\label{eq:poissonized-increment-survival}
+        \Pbb(Y_C^{\rm cont}>t)=\E e^{-tQ_C}.
+\end{equation}
+
+\begin{proposition}[Exact residual-mass identities]\label{prop:residual-identities}
+For every $p\in\Delta_N^\circ$ and $0\le C<N$,
+\begin{equation}\label{eq:residual-identities}
+        \MR_{LRU}(C;p)=\E Q_C(p),
+        \qquad
+        \E_p[T_{C+1}-T_C]=\E Q_C(p)^{-1}.
+\end{equation}
+Consequently, for $1\le C<N$,
+\begin{equation}\label{eq:jensen-product}
+        \MR_{LRU}(C;p)\,\E_p[T_{C+1}-T_C]
+        =\E Q_C\,\E Q_C^{-1}\ge 1.
+\end{equation}
+Equality holds if and only if $p$ is uniform.
+\end{proposition}
+
+\begin{proof}
+The identities are \eqref{eq:lru-hit-miss} and \eqref{eq:increment-mean}.  The inequality
+is Cauchy's inequality, or Jensen's inequality applied to $q\mapsto q^{-1}$:
+\[
+        \E Q_C^{-1}\ge (\E Q_C)^{-1}.
+\]
+Equality holds if and only if $Q_C$ is almost surely constant.  Since $p_i>0$, every
+$C$-subset occurs as $S_C$ with positive probability.  Thus $Q_C$ is constant if and only
+if $p(A)$ is the same for every $C$-subset $A$.  Comparing two $C$-subsets that differ by
+replacing $i$ with $j$ gives $p_i=p_j$ for all $i,j$.  Hence $p=u$.
+\end{proof}
+
+\section{The crossing method}
+
+Fix a positive nonuniform vector $p\in\Delta_N^\circ$ and write
+\[
+        h_i=p_i-\frac1N,
+        \qquad
+        p_i(\theta)=\frac1N+\theta h_i,
+        \qquad
+        0\le\theta\le1.
+\]
+Then $\sum_i h_i=0$ and $p_i(\theta)>0$ for $0\le\theta\le1$.
+
+Use a single family of independent standard Gumbel variables $G_1,\ldots,G_N$ for every
+$\theta$, and define
+\begin{equation}\label{eq:Ytheta}
+        Y_i(\theta)=G_i+\log p_i(\theta).
+\end{equation}
+Let $S_C(\theta)$ be the set of indices corresponding to the $C$ largest values of
+$Y_i(\theta)$.  By Lemma \ref{lem:gumbel}, $S_C(\theta)$ has the size-biased prefix law
+with weights $p_\theta$.
+
+Define the $h$-mass of the prefix by
+\begin{equation}\label{eq:H-def}
+        H_C(\theta)=\sum_{i\in S_C(\theta)}h_i.
+\end{equation}
+Then
+\begin{equation}\label{eq:M-as-c-plus-theta-H}
+        M_C(\theta)=p_\theta(S_C(\theta))
+        =\frac CN+\theta H_C(\theta).
+\end{equation}
+
+\begin{lemma}[One-way crossings]\label{lem:one-way-crossings}
+For $i\ne j$,
+\begin{equation}\label{eq:gap-derivative}
+        \frac{\dd}{\dd\theta}\bigl(Y_i(\theta)-Y_j(\theta)\bigr)
+        =\frac{(1/N)(h_i-h_j)}{p_i(\theta)p_j(\theta)}.
+\end{equation}
+Consequently, if $h_i>h_j$, then item $i$ can overtake item $j$ as $\theta$ increases,
+but item $j$ cannot overtake item $i$.
+\end{lemma}
+
+\begin{proof}
+Since
+\[
+        \frac{\dd}{\dd\theta}\log p_i(\theta)=\frac{h_i}{p_i(\theta)},
+\]
+we have
+\[
+\begin{aligned}
+        \frac{\dd}{\dd\theta}\bigl(Y_i-Y_j\bigr)
+        &=\frac{h_i}{p_i(\theta)}-\frac{h_j}{p_j(\theta)}  \\
+        &=\frac{h_ip_j(\theta)-h_jp_i(\theta)}{p_i(\theta)p_j(\theta)} \\
+        &=\frac{(1/N)(h_i-h_j)}{p_i(\theta)p_j(\theta)}.
+\end{aligned}
+\]
+The denominator is positive.  Thus the sign is the sign of $h_i-h_j$.
+\end{proof}
+
+\begin{lemma}[Pathwise monotonicity of prefix $h$-mass]\label{lem:H-pathwise}
+For every fixed realization of the Gumbel variables outside a null set, the function
+\[
+        \theta\mapsto H_C(\theta)
+\]
+is nondecreasing on $[0,1]$.
+\end{lemma}
+
+\begin{proof}
+Almost surely there are no triple ties and no pair is tied at a prescribed endpoint.  For
+each pair $i,j$, Lemma \ref{lem:one-way-crossings} shows that their relative order can
+change at most once, and when it changes the item with larger $h$ moves upward past the
+item with smaller $h$.
+
+The top-$C$ set changes only when a crossing occurs across the boundary between ranks $C$
+and $C+1$.  At such a crossing, the entering item has larger $h$ than the leaving item.
+Therefore the sum of $h_i$ over the top-$C$ set increases.  Crossings entirely inside the
+top $C$ or entirely outside it leave the set, and hence $H_C$, unchanged.  Since there are
+only finitely many pairs, $H_C(\theta)$ is a step function with nonnegative jumps.
+\end{proof}
+
+The next elementary lemma is the analytic step that converts pathwise monotonicity of
+$H_C$ into increasing-convex order for $M_C$.
+
+\begin{lemma}[A scaling lemma for increasing convex costs]\label{lem:scaling}
+Let $X$ be a bounded real random variable with $\E X\ge0$.  Fix $c\in\R$ and an interval
+$I$ containing $c+aX$ for all $a\in[a_0,a_1]$, where $0\le a_0\le a_1$.  If
+$\phi:I\to\R$ is increasing and convex, then
+\[
+        a\mapsto \E\phi(c+aX)
+\]
+is nondecreasing on $[a_0,a_1]$.
+\end{lemma}
+
+\begin{proof}
+On a compact interval, every increasing convex function admits the representation
+\[
+        \phi(x)=\alpha+\beta x+\int (x-t)_+\,\mu(\dd t),
+\]
+where $\beta\ge0$ and $\mu$ is a finite nonnegative measure.  It is therefore enough to
+check the affine function $x$ and the hinge functions $(x-t)_+$.
+
+For the affine function, monotonicity follows from $\E X\ge0$.  For a hinge, put
+\[
+        F_t(a)=\E(c+aX-t)_+.
+\]
+For $a>0$, the right derivative is
+\[
+        F_t'(a+)=\E\bigl[X\,\1_{\{X>(t-c)/a\}}\bigr].
+\]
+For any threshold $b$, the quantity $\E[X\1_{\{X>b\}}]$ is nonnegative.  If $b\ge0$ this
+is immediate.  If $b<0$, then
+\[
+        \E[X\1_{\{X>b\}}]=\E X-\E[X\1_{\{X\le b\}}]\ge0,
+\]
+because $\E X\ge0$ and $X\1_{\{X\le b\}}\le0$.  Thus $F_t$ is nondecreasing.  The case
+$a=0$ follows by right continuity.
+\end{proof}
+
+\section{The transform-order theorem}
+
+\begin{theorem}[Radial increasing-convex order for cached mass]\label{thm:icx}
+Let $N\ge2$, let $1\le C\le N-1$, and let $p\in\Delta_N^\circ$ be nonuniform.  Put
+\[
+        p_\theta=u+\theta(p-u),\qquad 0\le\theta\le1.
+\]
+Then for every increasing convex function $\phi$ on $[0,1]$, the map
+\[
+        \theta\mapsto \E\phi(M_C(p_\theta))
+\]
+is nondecreasing.  More explicitly, if $0\le\theta_1<\theta_2\le1$, then
+\begin{equation}\label{eq:icx-order}
+        \E\phi(M_C(p_{\theta_2}))
+        \ge
+        \E\phi(M_C(p_{\theta_1})).
+\end{equation}
+For every strictly increasing convex $\phi$, and also for the affine function
+$\phi(x)=x$, the inequality is strict.
+\end{theorem}
+
+\begin{proof}
+Use the common-Gumbel construction from Section 3.  Put
+\[
+        c=\frac CN,
+        \qquad
+        H_r=H_C(\theta_r),\quad r=1,2.
+\]
+By Lemma \ref{lem:H-pathwise}, $H_2\ge H_1$ pathwise.  Therefore, since $\phi$ is
+increasing,
+\begin{equation}\label{eq:first-step}
+        \E\phi(c+\theta_2H_2)
+        \ge
+        \E\phi(c+\theta_2H_1).
+\end{equation}
+
+It remains to compare $\theta_2H_1$ and $\theta_1H_1$.  At $\theta=0$, the Gumbel order
+is a uniformly random permutation, so $S_C(0)$ is a uniformly random $C$-subset.  Hence
+\[
+        \E H_C(0)=\frac CN\sum_i h_i=0.
+\]
+By Lemma \ref{lem:H-pathwise}, $H_1\ge H_C(0)$ pathwise, and therefore
+\[
+        \E H_1\ge0.
+\]
+Applying Lemma \ref{lem:scaling} with $X=H_1$, $a_0=\theta_1$, and $a_1=\theta_2$ gives
+\begin{equation}\label{eq:second-step}
+        \E\phi(c+\theta_2H_1)
+        \ge
+        \E\phi(c+\theta_1H_1).
+\end{equation}
+Combining \eqref{eq:first-step} and \eqref{eq:second-step}, and using
+\eqref{eq:M-as-c-plus-theta-H}, proves \eqref{eq:icx-order}.
+
+For strictness, choose $i,j$ with $h_i>h_j$.  Given any interval
+$(\theta_1,\theta_2)$, there is positive probability that $Y_i(\theta)-Y_j(\theta)$
+crosses zero inside that interval.  Indeed the required condition is that
+$G_i-G_j$ lies in a nonempty open interval, and $G_i-G_j$ has a positive density.  On a
+further positive-probability event, exactly $C-1$ of the remaining Gumbels are so large
+that they stay above both $i$ and $j$ throughout $[\theta_1,\theta_2]$, and all remaining
+Gumbels are so small that they stay below both.  On this event the crossing changes the
+membership of the top-$C$ set, replacing $j$ by $i$, and hence $H_C$ increases by
+$h_i-h_j>0$.
+
+Thus $\Pbb(H_2>H_1)>0$.  For strictly increasing $\phi$, the first comparison
+\eqref{eq:first-step} is strict.  For $\phi(x)=x$, strictness follows from
+\[
+        \E M_C(\theta_2)-\E M_C(\theta_1)
+        =\theta_2\E(H_2-H_1)+(\theta_2-\theta_1)\E H_1>0.
+\]
+This completes the proof.
+\end{proof}
+
+\begin{corollary}[Decreasing convex order for residual mass]\label{cor:dcx}
+Under the hypotheses of Theorem \ref{thm:icx}, for every decreasing convex function
+$\psi$ on $(0,1]$,
+\begin{equation}\label{eq:decreasing-convex}
+        \theta\mapsto \E\psi(Q_C(p_\theta))
+\end{equation}
+is nondecreasing whenever the expectation is finite.  It is strict for the strictly
+decreasing costs considered below.
+\end{corollary}
+
+\begin{proof}
+Put $\phi(m)=\psi(1-m)$.  If $\psi$ is decreasing and convex, then $\phi$ is increasing
+and convex.  Since $Q_C=1-M_C$, Theorem \ref{thm:icx} gives the claim.
+\end{proof}
+
+\section{Consequences for LRU}
+
+\subsection{Hit rate, miss rate, and stack-depth tails}
+
+Taking $\phi(m)=m$ in Theorem \ref{thm:icx} gives the radial LRU theorem of
+\cite{LongLRU2026}.
+
+\begin{corollary}[LRU hit and miss rates]\label{cor:lru-hit-miss}
+For $1\le C\le N-1$ and nonuniform $p\in\Delta_N^\circ$,
+\[
+        \theta\mapsto \Hit_{LRU}(C;p_\theta)=\E M_C(p_\theta)
+\]
+is strictly increasing on $[0,1]$, and
+\[
+        \theta\mapsto \MR_{LRU}(C;p_\theta)=\E Q_C(p_\theta)
+\]
+is strictly decreasing on $[0,1]$.
+\end{corollary}
+
+Equivalently, for the move-to-front search cost $R$ in stationarity,
+\[
+        \Pbb(R>C)=\MR_{LRU}(C;p).
+\]
+Therefore the stationary move-to-front search cost decreases in usual stochastic order
+along every nonconstant ray away from uniform.  This is the radial restriction of the
+Fill--Holst search-cost tail conjecture established in \cite{LongLRU2026}; the present
+argument obtains it as the linear shadow of a stronger transform order.
+
+\subsection{No-miss survival and hit-run lengths}
+
+Taking $\phi(m)=m^n$ gives a stronger LRU statement.
+
+\begin{corollary}[Discrete no-miss survival]\label{cor:no-miss-discrete}
+For every integer $n\ge1$,
+\[
+        \theta\mapsto \E M_C(p_\theta)^n
+\]
+is strictly increasing.  Equivalently, starting from a stationary LRU cache of capacity
+$C$, the probability that the next $n$ requests are all hits is strictly increasing along
+every nonconstant ray away from uniform.
+\end{corollary}
+
+\begin{proof}
+The function $m\mapsto m^n$ is increasing and convex on $[0,1]$.  Use
+Theorem \ref{thm:icx} and identity \eqref{eq:no-miss-discrete}.
+\end{proof}
+
+Taking $\psi(q)=e^{-tq}$ gives the continuous-time version.
+
+\begin{corollary}[Continuous no-miss survival]\label{cor:no-miss-continuous}
+For every $t>0$,
+\[
+        \theta\mapsto \E e^{-tQ_C(p_\theta)}
+\]
+is strictly increasing.  Equivalently, in the rate-one Poissonized IRM, the probability
+that no LRU miss occurs before time $t$ is strictly increasing along every nonconstant ray
+away from uniform.
+\end{corollary}
+
+\begin{proof}
+The function $q\mapsto e^{-tq}$ is decreasing and convex on $(0,1]$.  Apply
+Corollary \ref{cor:dcx} and use \eqref{eq:no-miss-continuous}.
+\end{proof}
+
+\section{Consequences for coupon collecting}
+
+\subsection{One-step stochastic monotonicity}
+
+The coupon-collector increment $Y_C=T_{C+1}-T_C$ is conditionally geometric with success
+probability $Q_C$.  Its survival probabilities are $\E M_C^n$.  Corollary
+\ref{cor:no-miss-discrete} therefore gives an exact one-step stochastic order.
+
+\begin{theorem}[Radial stochastic monotonicity of discovery increments]\label{thm:increment-stochastic}
+For $0\le C<N$ and nonuniform $p\in\Delta_N^\circ$, the coupon-collector increment
+\[
+        T_{C+1}-T_C
+\]
+is stochastically increasing along the ray $p_\theta=u+\theta(p-u)$.  More precisely,
+for every $n\ge0$,
+\[
+        \theta\mapsto \Pbb_{p_\theta}(T_{C+1}-T_C>n)
+\]
+is nondecreasing, and it is strict for $n\ge1$ when $1\le C\le N-1$.
+\end{theorem}
+
+\begin{proof}
+For $n=0$ the survival probability is one.  For $n\ge1$, equation
+\eqref{eq:geom-survival} gives
+\[
+        \Pbb(T_{C+1}-T_C>n)=\E M_C^n,
+\]
+and Corollary \ref{cor:no-miss-discrete} applies.  The case $C=0$ is deterministic with
+$Q_0=1$ and $M_0=0$.
+\end{proof}
+
+In continuous time, the same statement follows from Corollary \ref{cor:no-miss-continuous}
+and \eqref{eq:poissonized-increment-survival}.
+
+\subsection{Reciprocal and negative moments}
+
+\begin{corollary}[Negative residual moments and CCP increments]\label{cor:negative-moments}
+For every $s>0$,
+\[
+        \theta\mapsto \E Q_C(p_\theta)^{-s}
+\]
+is strictly increasing for $1\le C\le N-1$.  In particular,
+\begin{equation}\label{eq:reciprocal-increment-monotone}
+        \theta\mapsto \E_{p_\theta}[T_{C+1}-T_C]
+        =\E Q_C(p_\theta)^{-1}
+\end{equation}
+is strictly increasing.
+\end{corollary}
+
+\begin{proof}
+For $s>0$, the function $q\mapsto q^{-s}$ is decreasing and convex on $(0,1]$.  Apply
+Corollary \ref{cor:dcx}.  The identity \eqref{eq:reciprocal-increment-monotone} is
+\eqref{eq:increment-mean}.
+\end{proof}
+
+Summing \eqref{eq:reciprocal-increment-monotone} over $C=0,\ldots,j-1$ recovers radial
+monotonicity of the expected time to collect $j$ distinct coupons:
+\[
+        \theta\mapsto \E_{p_\theta}T_j
+\]
+is strictly increasing for $2\le j\le N$.  The theorem is stronger than this expectation
+statement because it gives stochastic monotonicity of every one-step increment.
+
+\section{Residual-mass cost classes}
+
+Corollary \ref{cor:dcx} can be restated in cost language.  If $f$ is increasing and
+concave on $[0,1]$, then $-f$ is decreasing and convex, so
+\[
+        \theta\mapsto \E f(Q_C(p_\theta))
+\]
+is nonincreasing.  If $g$ is completely monotone, then $g$ is decreasing and convex, so
+\[
+        \theta\mapsto \E g(Q_C(p_\theta))
+\]
+is nondecreasing.
+
+\begin{corollary}[Fractional positive moments]\label{cor:fractional-positive}
+For every $0<r\le1$,
+\[
+        \theta\mapsto \E Q_C(p_\theta)^r
+\]
+is strictly decreasing for $1\le C\le N-1$.
+\end{corollary}
+
+\begin{proof}
+For $0<r<1$, the function $q\mapsto q^r$ is increasing and concave, equivalently
+$q\mapsto -q^r$ is decreasing and convex.  The case $r=1$ is Corollary
+\ref{cor:lru-hit-miss}.
+\end{proof}
+
+\begin{corollary}[Completely monotone residual costs]\label{cor:cm}
+If $g$ is completely monotone on $(0,1]$ and finite on the range of $Q_C$, then
+\[
+        \theta\mapsto \E g(Q_C(p_\theta))
+\]
+is nondecreasing.  This includes $g(q)=e^{-\lambda q}$ and $g(q)=q^{-s}$.
+\end{corollary}
+
+\begin{proof}
+A completely monotone function satisfies $g'\le0$ and $g''\ge0$, hence is decreasing and
+convex.  Apply Corollary \ref{cor:dcx}.
+\end{proof}
+
+\subsection{Boundaries of the theorem}
+
+The theorem deliberately does not assert monotonicity of all positive moments or centered
+moments of $Q_C$.
+
+\begin{example}[High positive moments can fail]\label{ex:high-positive}
+For $C=1$,
+\[
+        Q_1=1-p_I,
+        \qquad \Pbb(I=i)=p_i,
+\]
+and hence
+\[
+        \E Q_1^r=\sum_i p_i(1-p_i)^r.
+\]
+With $N=3$, $r=10$, and $p=(0.98,0.01,0.01)$,
+\[
+        \E_p Q_1^{10}
+        =0.98(0.02)^{10}+0.02(0.99)^{10}
+        \approx 0.0180876,
+\]
+whereas under uniform popularity
+\[
+        \E_u Q_1^{10}=(2/3)^{10}\approx0.0173415.
+\]
+Thus uniform does not maximize high positive residual moments.
+\end{example}
+
+\begin{example}[Centered residual moments are not radially monotone]\label{ex:centered}
+Let $N=2$ and $C=1$.  Write
+\[
+        p_1=\frac12+\delta,
+        \qquad
+        p_2=\frac12-\delta.
+\]
+Then $Q_1$ equals $p_2$ with probability $p_1$ and $p_1$ with probability $p_2$.  A direct
+calculation gives
+\[
+        \Var(Q_1)=\delta^2-4\delta^4.
+\]
+This increases near $\delta=0$ but decreases as $\delta$ approaches $1/2$.  Thus centered
+moments of the residual mass are not governed by the radial transform order above.
+\end{example}
+
+\section{Berthet's relation revisited}
+
+Berthet \cite{Berthet2017} observed that, for a partial coupon collection and an LRU
+cache under the same IRM popularity, the miss rate and the forward difference of the
+coupon waiting-time expectation are asymptotically related by
+\[
+        \MR_{LRU}(C;p)\,\bigl(\E T_{C+1}-\E T_C\bigr)\approx1.
+\]
+The exact residual identities show that the exact product is
+\[
+        \MR_{LRU}(C;p)\,\bigl(\E T_{C+1}-\E T_C\bigr)
+        =\E Q_C\,\E Q_C^{-1}.
+\]
+Thus Berthet's relation is exact at uniform popularity, where $Q_C=(N-C)/N$ is
+deterministic, and is approximately true whenever $Q_C$ is concentrated.
+
+The transform order proved here gives a sharper finite-$N$ picture.  Along every
+nonconstant ray away from uniform,
+\[
+        \E Q_C\downarrow,
+        \qquad
+        \E Q_C^{-1}\uparrow,
+\]
+and, more generally,
+\[
+        \E e^{-tQ_C}\uparrow,
+        \qquad
+        \E Q_C^{-s}\uparrow,
+        \qquad
+        \E Q_C^r\downarrow\quad(0<r\le1).
+\]
+LRU and coupon collecting are therefore linked not by a single approximate reciprocal
+formula but by an exact common residual-hazard law.  LRU observes the residual mass
+through the linear cost $q$; coupon collection observes the same residual mass through
+the reciprocal cost $q^{-1}$.
+
+\section{Relation to the positive pair-kernel LRU proof}
+
+The radial LRU theorem in \cite{LongLRU2026} proves
+\[
+        \frac{\dd}{\dd\theta}\Hit_C(p_\theta)>0
+\]
+by deriving an explicit formula of the form
+\[
+        \frac{\dd}{\dd\theta}\Hit_C(p_\theta)
+        =\frac{1}{N\theta}\sum_{a<b}(p_a(\theta)-p_b(\theta))^2
+        K_{ab}^{(C)}(p_\theta),
+        \qquad K_{ab}^{(C)}(p_\theta)>0.
+\]
+The present Gumbel proof gives a stronger conclusion but does not replace the value of
+that local formula.  The two methods reveal different structures.
+
+\begin{enumerate}[label=(\arabic*)]
+\item The Gumbel crossing proof gives a global monotone coupling of the whole
+Plackett--Luce ranking along a ray from uniform.  It proves increasing-convex order for
+$M_C$ and gives the LRU--coupon transfer results.
+
+\item The pair-kernel proof gives an explicit finite-dimensional derivative certificate
+for the hit rate.  It is algebraic, computable, and useful for sensitivity analysis.
+It also clarifies exactly why ray directions from uniform are special.
+
+\item The occupancy-Jacobian proof in \cite{LongLRU2026} explains why full
+Schur-convexity fails while radial monotonicity survives: the sign-indefinite local terms
+collapse to positive squares only in the radial direction.
+\end{enumerate}
+
+Thus the new theorem subsumes the expectation-level conclusion of \cite{LongLRU2026} and
+extends it to transform order, but the earlier proof remains valuable as a local analytic
+and algebraic certificate.
+
+\section{Further directions}
+
+The results suggest several natural extensions.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Joint residual-mass order.}  The present theorem controls each fixed
+$Q_C$ separately.  A stronger theorem would order the vector
+\[
+        (Q_0,Q_1,\ldots,Q_{N-1})
+\]
+or the vector of coupon-collector increments.  Such a result could imply stochastic
+monotonicity of full partial collection times $T_j$, not merely their one-step increments.
+
+\item \textbf{Other ranking paths.}  The crossing argument applies whenever scores have
+the form $G_i+\eta_i(t)$ and the pairwise differences $\eta_i(t)-\eta_j(t)$ move
+monotonically according to a fixed item score.  This includes softmax-temperature paths
+$p_i(\beta)\propto e^{\beta v_i}$, and suggests a broader monotone-comparative-static
+theory for Plackett--Luce rankings.
+
+\item \textbf{Other caching policies.}  The argument is special to LRU/MTF because the
+stationary order is Plackett--Luce.  Policies with different stationary cache laws, such
+as CLIMB, would require different Gibbs, total-positivity, or polynomial methods.  The
+positive-kernel and occupancy-Jacobian methods of \cite{LongLRU2026} may be more
+adaptable there than the common-Gumbel crossing proof.
+
+\item \textbf{Dispersion of the residual mass.}  The product
+\[
+        \E Q_C\,\E Q_C^{-1}
+\]
+is a Jensen dispersion gap.  The present theorem gives opposite monotonicities for the
+two factors, but it does not assert monotonicity of the product.  Understanding this gap
+more precisely would sharpen the interpretation of Berthet's approximation.
+\end{enumerate}
+
+\section*{Acknowledgment}
+This paper was developed in response to the observation that the LRU miss rate and the
+coupon-collector discovery increment are exact positive and reciprocal moment transforms
+of the same size-biased residual mass.
+
+\begin{thebibliography}{99}
+
+\bibitem{AnceaumeBusnelSericola2015}
+E. Anceaume, Y. Busnel and B. Sericola,
+New results on a generalized coupon collector problem using Markov chains,
+\emph{Journal of Applied Probability} \textbf{52} (2015), no. 2, 405--418.
+
+\bibitem{AnceaumeBusnelSericola2016}
+E. Anceaume, Y. Busnel, E. Schulte-Geers and B. Sericola,
+Optimization results for a generalized coupon collector problem,
+\emph{Journal of Applied Probability} \textbf{53} (2016), no. 2, 622--629.
+Preprint: arXiv:1504.03878.
+
+\bibitem{Berthet2017}
+C. Berthet,
+Contributions to the generalized coupon collector and LRU problems,
+arXiv:1706.05250, 2017.
+
+\bibitem{BonehHofri1997}
+A. Boneh and M. Hofri,
+The coupon-collector problem revisited: a survey of engineering problems and computational methods,
+\emph{Stochastic Models} \textbf{13} (1997), no. 1, 39--66.
+
+\bibitem{CheTungWang2002}
+H. Che, Y. Tung and Z. Wang,
+Hierarchical web caching systems: modeling, design and experimental results,
+\emph{IEEE Journal on Selected Areas in Communications} \textbf{20} (2002), no. 7, 1305--1314.
+
+\bibitem{Fagin1977}
+R. Fagin,
+Asymptotic miss ratios over independent references,
+\emph{Journal of Computer and System Sciences} \textbf{14} (1977), no. 2, 222--250.
+
+\bibitem{FaginPrice1978}
+R. Fagin and T. G. Price,
+Efficient calculation of expected miss ratios in the independent reference model,
+\emph{SIAM Journal on Computing} \textbf{7} (1978), no. 3, 288--297.
+
+\bibitem{FillHolst1996}
+J. A. Fill and L. Holst,
+On the distribution of search cost for the move-to-front rule,
+\emph{Random Structures \& Algorithms} \textbf{8} (1996), no. 3, 179--186.
+
+\bibitem{FlajoletGardyThimonier1992}
+P. Flajolet, D. Gardy and L. Thimonier,
+Birthday paradox, coupon collectors, caching algorithms and self-organizing search,
+\emph{Discrete Applied Mathematics} \textbf{39} (1992), no. 3, 207--229.
+
+\bibitem{Hildebrand1999}
+M. Hildebrand,
+On a conjecture of Fill and Holst involving the move-to-front rule and cache faults,
+\emph{Probability in the Engineering and Informational Sciences} \textbf{13} (1999), no. 3, 377--385.
+
+\bibitem{Jelenkovic1999}
+P. R. Jelenkovic,
+Asymptotic approximation of the move-to-front search cost distribution and least-recently-used caching fault probabilities,
+\emph{The Annals of Applied Probability} \textbf{9} (1999), no. 2, 430--464.
+
+\bibitem{King1971}
+W. F. King III,
+Analysis of demand paging algorithms,
+\emph{Proceedings of IFIP Congress}, 1971, 485--490.
+
+\bibitem{LongLRU2026}
+C. D. Long,
+Radial extremality for LRU caching and the Fill--Holst conjecture,
+arXiv:2605.26107, 2026.
+
+\bibitem{MarshallOlkinArnold2011}
+A. W. Marshall, I. Olkin and B. C. Arnold,
+\emph{Inequalities: Theory of Majorization and Its Applications},
+2nd ed., Springer, New York, 2011.
+
+\bibitem{VanichpunMakowski2004}
+S. Vanichpun and A. M. Makowski,
+Comparing strength of locality of reference: popularity, majorization, and some folk theorems,
+\emph{Proceedings of IEEE INFOCOM 2004}, vol. 2, 838--849.
+
+\end{thebibliography}
+
+\end{document}
