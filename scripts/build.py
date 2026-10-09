@@ -155,7 +155,7 @@ def main() -> None:
                     "Rebuilt PDF bytes differ despite matching extracted text; "
                     "refresh the deterministic snapshot with make pdf: "+name
                 )
-            if freshhash != rec["pdf_sha256"]:
+            if freshhash != old[rel]["pdf_sha256"]:
                 raise RuntimeError("Rebuilt PDF hash disagrees with manifest: "+name)
             pdfhash=freshhash
         else:
