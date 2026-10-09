@@ -55,7 +55,7 @@ def check_readme_math() -> None:
         raise RuntimeError(
             "README contains unsupported/unreviewed TeX command(s): " + ", ".join(unsupported)
         )
-    if text.count("$") % 2:
+    if text.count("$$") % 2:
         raise RuntimeError("README has unmatched display-math delimiter")
     for line in text.splitlines():
         if "$$" in line and line.strip() != "$$":
