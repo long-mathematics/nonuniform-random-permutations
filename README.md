@@ -186,13 +186,13 @@ make verify  # run the exact finite Thorp audit in addition to the repository te
 
 All canonical LaTeX sources are standalone except the pinned Thorp source, which includes its companion file. PDFs are committed under `output/pdf/`; intermediates stay in `.build/`. The [manifest](output/pdf/manifest.json) records source hashes, PDF hashes, and page counts.
 
-The README intentionally uses GitHub's dollar-delimited inline math and double-dollar display blocks. It defines no custom LaTeX macros. The repository linter uses an explicit allowlist for the TeX commands appearing here, so manuscript-only or unsupported commands such as `\\operatorname` cannot silently break GitHub rendering.
+The README intentionally uses GitHub's dollar-delimited inline math and double-dollar display blocks. It defines no custom LaTeX macros. The repository linter uses an explicit allowlist for the TeX commands appearing here, so manuscript-only or unsupported commands cannot silently break GitHub rendering.
 
 ## Scripts
 
 | Script | Purpose |
 | --- | --- |
-| [Build and snapshot checker](scripts/build.py) | Compile manuscripts, refresh the PDF manifest, verify hashes, compare rebuilt PDF text, and lint README links and math syntax |
+| [Build and snapshot checker](scripts/build.py) | Compile manuscripts, refresh the PDF manifest, verify deterministic PDF bytes and hashes, and lint README links and math syntax |
 | [Thorp exact finite audit](scripts/thorp_moment_audit.cpp) | Exact integer check of 156 rooted cyclic-word factorial-moment identities in dimensions $d=2,3,4,5$ |
 
 The repository tests are in [`tests/test_repository.py`](tests/test_repository.py).
