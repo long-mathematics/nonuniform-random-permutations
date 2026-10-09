@@ -88,6 +88,34 @@ class RepositoryTests(unittest.TestCase):
             finally:
                 build.ROOT=old
 
+    def test_markdown_setext_line_inside_display_rejected(self):
+        original=(ROOT/"README.md").read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory() as d:
+            fake=Path(d)
+            (fake/"README.md").write_text(
+                original+"\n$\n\\Phi(x)\n=\n1\n$\n",encoding="utf-8"
+            )
+            old=build.ROOT
+            try:
+                build.ROOT=fake
+                with self.assertRaises(RuntimeError): build.check_readme_math()
+            finally:
+                build.ROOT=old
+
+    def test_markdown_list_marker_inside_display_rejected(self):
+        original=(ROOT/"README.md").read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory() as d:
+            fake=Path(d)
+            (fake/"README.md").write_text(
+                original+"\n$\n- x\n$\n",encoding="utf-8"
+            )
+            old=build.ROOT
+            try:
+                build.ROOT=fake
+                with self.assertRaises(RuntimeError): build.check_readme_math()
+            finally:
+                build.ROOT=old
+
     def test_total_cycle_candidate_not_promoted(self):
         self.assertNotIn("notes/provenance/mesoscopic-total-cycle-resolution-candidate.tex",
                          {x for x,_ in build.DOCUMENTS})
