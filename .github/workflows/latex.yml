@@ -41,6 +41,8 @@ jobs:
             .build/**/*.pdf
             .build/**/*.log
             .build/**/build-console.txt
+            output/pdf/*.pdf
+            output/pdf/manifest.json
           include-hidden-files: true
           if-no-files-found: warn
           retention-days: 14
