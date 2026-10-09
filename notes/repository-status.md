@@ -45,4 +45,5 @@ The repository sources were reconciled against the recovered Library copies used
 - First-page renders of all eight Long documents were inspected for title-page clipping, missing glyphs, and obvious layout failures.
 - The exact Thorp audit program verifies 156 identities for dimensions 2 through 5.
 - README math is linted to use GitHub dollar delimiters; custom manuscript macros and alternative TeX math delimiters are forbidden in the README.
+- Freshly compiled PDFs were compared with the recovered uploaded PDFs. Papers I, V, VI, and the one-shuffle Edgeworth working branch have identical extracted text; Papers II, III, IV, and the functional Luce branch differ only by the intentional author-line insertion described above.
 - The GitHub Actions workflow rebuilds every committed PDF from a clean checkout and requires byte-for-byte equality with the committed snapshot. It also verifies source hashes, PDF hashes, local links, and README math syntax.
