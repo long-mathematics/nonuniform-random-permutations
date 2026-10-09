@@ -63,17 +63,17 @@ def check_readme_math() -> None:
         stripped = line.strip()
         if stripped == "$":
             raise RuntimeError("README has a standalone single-dollar delimiter")
-        if "$" in line and stripped != "$":
+        if "$$" in line and stripped != "$$":
             raise RuntimeError("README display delimiter must occupy its own line: " + line)
-        if stripped == "$":
+        if stripped == "$$":
             in_display = not in_display
             continue
         if in_display:
-            if stripped in {"=", "-", "---"}:
+            if re.fullmatch(r"=+", stripped) or re.fullmatch(r"-+", stripped):
                 raise RuntimeError(
                     "README display contains a Markdown structural line: " + line
                 )
-            if re.match(r"^[+*-]\\s+", stripped):
+            if re.match(r"^[+*-]\s+", stripped):
                 raise RuntimeError(
                     "README display contains a Markdown list marker: " + line
                 )
