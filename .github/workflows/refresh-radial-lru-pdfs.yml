@@ -1,0 +1,45 @@
+name: Refresh PDFs for radial LRU import
+
+on:
+  push:
+    branches: [add/radial-lru-paper]
+    paths:
+      - .github/workflows/refresh-radial-lru-pdfs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: add/radial-lru-paper
+          fetch-depth: 0
+      - name: Install TeX and verification tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk texlive-latex-extra texlive-fonts-recommended texlive-science \
+            lmodern poppler-utils python3 g++ make
+      - name: Rebuild deterministic PDF snapshots
+        run: make pdf
+      - name: Run repository tests
+        run: make test
+      - name: Run exact finite verification
+        run: make verify
+      - name: Verify rebuilt snapshots
+        run: make check
+      - name: Commit refreshed manifest and PDF snapshots
+        run: |
+          set -euo pipefail
+          rm .github/workflows/refresh-radial-lru-pdfs.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add output/pdf .github/workflows/refresh-radial-lru-pdfs.yml
+          git commit -m 'Refresh PDF manifest for radial LRU paper'
+          git push origin HEAD:add/radial-lru-paper
