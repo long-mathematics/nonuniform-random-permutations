@@ -30,7 +30,7 @@ The supplementary checks can also be run from the repository root:
 python3 scripts/thorp-cycle-universality/reproduce.py
 ```
 
-This replays the preserved finite audits, tests the additions, and checks a deterministic rebuild of this manuscript. It requires Python 3, a C++17 compiler, `latexmk`, and the repository's TeX dependencies. No shell escape is needed.
+This replays the preserved finite audits, tests the additions, and checks a deterministic rebuild of this manuscript. Exact PDF byte identity requires the same pdfTeX toolchain as the pinned CI runner; another pdfTeX release may generate a text-equivalent PDF with different bytes. It requires Python 3, a C++17 compiler, `latexmk`, and the repository's TeX dependencies. No shell escape is needed.
 
 [Revision history](../../notes/provenance/thorp-cycle-universality/CHANGELOG.md) · [Review and validation record](../../notes/provenance/thorp-cycle-universality/REVIEW-AND-VALIDATION.md)
 
