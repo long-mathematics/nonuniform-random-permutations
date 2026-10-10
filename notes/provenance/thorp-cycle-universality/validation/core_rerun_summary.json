@@ -1,0 +1,21 @@
+{
+  "status": "all reruns match preserved results",
+  "checks": [
+    {
+      "check": "thorp_multiscale_cycle_audit",
+      "matches_preserved_result": true
+    },
+    {
+      "check": "thorp_multibridge_audit",
+      "matches_preserved_result": true
+    },
+    {
+      "check": "independent_switch_audit",
+      "matches_preserved_result": true
+    },
+    {
+      "check": "independent_overlap_rank_audit",
+      "matches_preserved_result": true
+    }
+  ]
+}

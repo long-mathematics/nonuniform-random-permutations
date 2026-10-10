@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "scope": "Exact finite identities for the newly added statements; no asymptotic theorem is inferred from these checks.",
+  "scalar_inclusion_exclusion_cases": 3232,
+  "selected_occurrence_remainder_cases": 6987,
+  "short_cycle_checks": [
+    {
+      "d": 2,
+      "feedback_environments": 4,
+      "marginals_checked": 1,
+      "independent_lengths": 1,
+      "joint_atoms_checked": 3
+    },
+    {
+      "d": 3,
+      "feedback_environments": 16,
+      "marginals_checked": 2,
+      "independent_lengths": 2,
+      "joint_atoms_checked": 6
+    },
+    {
+      "d": 4,
+      "feedback_environments": 256,
+      "marginals_checked": 3,
+      "independent_lengths": 2,
+      "joint_atoms_checked": 6
+    },
+    {
+      "d": 5,
+      "feedback_environments": 65536,
+      "marginals_checked": 4,
+      "independent_lengths": 3,
+      "joint_atoms_checked": 18
+    }
+  ],
+  "chebyshev_prime_product_cases": 300,
+  "closing_query_definition_regression": {
+    "d": 3,
+    "word": "1011",
+    "open_repeats_J": 0,
+    "closing_repeats_K": 1,
+    "repeats_known_only_from_earlier_closing_query": 1,
+    "total_repeated_contexts": 1
+  }
+}

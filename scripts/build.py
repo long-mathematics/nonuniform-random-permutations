@@ -24,6 +24,7 @@ DOCUMENTS = [
     ("papers/05-one-shuffle-universality/one-shuffle-universality.tex", "one-shuffle-universality.pdf"),
     ("papers/06-radial-lru-extremality/radial-lru-extremality.tex", "radial-lru-extremality.pdf"),
     ("papers/07-residual-mass-transform-order/residual-mass-transform-order.tex", "residual-mass-transform-order.pdf"),
+    ("papers/08-thorp-cycle-universality/thorp-cycle-universality.tex", "thorp-cycle-universality.pdf"),
     ("notes/working/functional-luce-erdos-turan.tex", "functional-luce-erdos-turan.pdf"),
     ("notes/working/one-shuffle-edgeworth-optimality.tex", "one-shuffle-edgeworth-optimality.pdf"),
     ("third_party/openai-thorp/main.tex", "openai-thorp-mixing.pdf"),

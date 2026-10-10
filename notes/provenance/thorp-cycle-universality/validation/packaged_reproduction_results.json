@@ -1,0 +1,36 @@
+{
+  "finite_checks": [
+    {
+      "name": "preserved_core_suite",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "thorp_multiscale_cycle_audit",
+          "matches_preserved_result": true
+        },
+        {
+          "check": "thorp_multibridge_audit",
+          "matches_preserved_result": true
+        },
+        {
+          "check": "independent_switch_audit",
+          "matches_preserved_result": true
+        },
+        {
+          "check": "independent_overlap_rank_audit",
+          "matches_preserved_result": true
+        }
+      ]
+    },
+    {
+      "name": "additions_suite",
+      "status": "matches frozen results"
+    }
+  ],
+  "build": {
+    "status": "two clean builds match snapshot",
+    "pdf_sha256": "50934012a1d0032b056b140a2322eb83ab42ad274e238394e486aca2b8affa2c",
+    "source_sha256": "4f26231b0cd5a46703c7ba360890729711205f32848dfb4b46f3f2215710bed2"
+  },
+  "status": "all requested checks passed"
+}

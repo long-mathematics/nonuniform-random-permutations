@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "pages": 21,
+  "source_sha256": "4f26231b0cd5a46703c7ba360890729711205f32848dfb4b46f3f2215710bed2",
+  "pdf_sha256": "50934012a1d0032b056b140a2322eb83ab42ad274e238394e486aca2b8affa2c",
+  "two_clean_builds_in_different_output_directories_identical": true,
+  "missing_references": [],
+  "duplicate_labels": [],
+  "unresolved_citations": [],
+  "latex_errors_or_overfull_boxes": [],
+  "conversion_artifacts_found": [],
+  "nonfatal_warnings": [
+    "Package epstopdf Warning: Shell escape feature is not enabled."
+  ],
+  "text_boxes_outside_preflight_margins": [],
+  "theorem_labels": [
+    "cor:additive",
+    "cor:dickman",
+    "cor:full-lower",
+    "cor:maximum",
+    "cor:scale-poisson",
+    "lem:finite-ie",
+    "prop:short-cycles",
+    "thm:birthday",
+    "thm:bounded-mass",
+    "thm:functional",
+    "thm:moments"
+  ],
+  "environment": {
+    "pdflatex": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian)",
+    "latexmk": [
+      "Latexmk, John Collins, 11 Dec. 2024. Version 4.86"
+    ],
+    "SOURCE_DATE_EPOCH": "1791504000",
+    "FORCE_SOURCE_DATE": "1",
+    "TZ": "UTC"
+  }
+}

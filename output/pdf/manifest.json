@@ -51,6 +51,13 @@
       "pages": 14
     },
     {
+      "source": "papers/08-thorp-cycle-universality/thorp-cycle-universality.tex",
+      "source_sha256": "4f26231b0cd5a46703c7ba360890729711205f32848dfb4b46f3f2215710bed2",
+      "pdf": "output/pdf/thorp-cycle-universality.pdf",
+      "pdf_sha256": "50934012a1d0032b056b140a2322eb83ab42ad274e238394e486aca2b8affa2c",
+      "pages": 21
+    },
+    {
       "source": "notes/working/functional-luce-erdos-turan.tex",
       "source_sha256": "bae8958e825dc3f3d8bd4290ae4715f9d6fbce1d1eb17ca101699c9ba8e5bffa",
       "pdf": "output/pdf/functional-luce-erdos-turan.pdf",

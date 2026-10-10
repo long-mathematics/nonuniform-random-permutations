@@ -15,3 +15,4 @@ verify:
 	mkdir -p .build/thorp-audit
 	g++ -std=c++17 -O2 scripts/thorp_moment_audit.cpp -o .build/thorp-audit/thorp_moment_audit
 	.build/thorp-audit/thorp_moment_audit
+	python3 scripts/thorp-cycle-universality/reproduce.py --skip-build

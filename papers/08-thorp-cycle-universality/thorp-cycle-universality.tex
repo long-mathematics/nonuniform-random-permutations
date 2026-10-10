@@ -1,0 +1,1642 @@
+\documentclass[11pt]{article}
+% Avoid an output-directory-dependent trailer ID in deterministic snapshots.
+\ifdefined\pdftrailerid\pdftrailerid{}\fi
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{xurl}
+\usepackage[hidelinks,unicode,pdfencoding=auto]{hyperref}
+\usepackage{bookmark}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlist{itemsep=2pt,topsep=4pt}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[1]
+\hypersetup{pdftitle={Cycle Universality for a Single Thorp Shuffle},pdfauthor={Christopher D. Long},pdfsubject={Mesoscopic cycle moments, Poisson limits, and a truncated functional Erdos--Turan law}}
+\title{Cycle Universality for a Single Thorp Shuffle}
+\author{Christopher D. Long}
+\date{9 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We study the cycles of one physical Thorp shuffle on $N=2^d$ states,
+equivalently a uniformly random binary noncoalescing feedback shift
+register. For every fixed number of prescribed cycles, we prove uniform
+joint factorial-moment asymptotics when their lengths are at least $4d$
+and their total length is at most $N^\beta$, for fixed $\beta<2/3$.
+No restriction is imposed on the ratios of the cycle lengths. These
+estimates yield a joint functional Gaussian limit for cycle counts and
+logarithmic truncated permutation order on every fixed exponent interval
+$[0,\alpha]$, $\alpha<2/3$. They also give Poisson approximation on sets
+of bounded harmonic mass, a scale-invariant Poisson cycle process, and
+Dickman and uniform limits for truncated cycle mass and the largest cycle
+below a cutoff. A separate argument gives a quantitative Poisson
+approximation for the entire initial cycle-count vector below the
+birthday scale. The proof combines weighted cyclic words, empirical-type
+entropy, marked switching, longest-last forced closure, and a
+middle-first bridge. The feedback function is sampled once and reused.
+The full permutation-order central limit theorem is not proved.
+\end{abstract}
+
+\section{Introduction and main
+results}\label{introduction-and-main-results}
+
+A random permutation can have universal cycle statistics long before its full
+law resembles the uniform measure. We study this distinction for one physical
+Thorp shuffle on $N=2^d$ positions. In binary coordinates its permutation is
+\[
+ T_f(x_1,\ldots,x_d)
+ =(x_2,\ldots,x_d,x_1\oplus f(x_2,\ldots,x_d)),
+ \qquad f:\mathbb F_2^{d-1}\longrightarrow\mathbb F_2,
+\]
+where all $N/2$ values of $f$ are independent fair bits. This is the binary
+noncoalescing feedback-shift-register model. The feedback function is sampled
+\emph{once}; following a cycle reuses its values, rather than supplying an
+independent table at every iterate.
+
+Thorp introduced the shuffle in his study of nonrandom shuffling and Faro
+\cite{Thorp}. For this feedback model, Arratia, Canfield, and Hales
+\cite{ACH} proved the Poisson--Dirichlet limit for the ranked macroscopic
+cycle lengths. Stark \cite{Stark} proved exact independent-binomial laws
+for sufficiently short cycles. Neither a macroscopic weak limit nor
+short-cycle independence determines the joint statistics of cycles at
+intermediate lengths. The present paper establishes uniform factorial
+moments across that intermediate regime, with no comparability assumption
+on the prescribed lengths.
+
+Write $C_r=C_r(T_f)$ for the number of $r$-cycles, $u(x)$ for the last
+$d-1$ bits of a state, and $\bar x$ for the state obtained by flipping its
+first bit. We use $\mathcal L(Y)$ for a law and
+$d_{\rm TV}(\mu,\nu)=\sup_A|\mu(A)-\nu(A)|$. Entropies and $\log_2$
+are in bits; other logarithms are natural. The notation $(z)_a$ denotes a
+falling factorial, and the least common multiple of an empty set is one.
+
+Our main estimates lead to a truncated functional Erd\H{o}s--Tur\'{a}n
+law, complementing the classical permutation-order theorem \cite{ET} and
+one-shuffle universality results for riffle and shelf models \cite{Long}.
+They also give Poisson approximation on sets of bounded harmonic mass,
+a scale-invariant Poisson cycle process, and a Dickman law for the mass in
+truncated cycles. A separate quantitative estimate treats the full initial
+cycle-count vector below the birthday scale. The proof uses weighted
+cyclic words, empirical-type entropy, marked feedback switches, and forced
+closures. It uses neither an independent-round mixing theorem nor the
+macroscopic Poisson--Dirichlet limit.
+
+\subsection{Joint cycle moments}
+
+
+
+For a list of positive lengths \(\mathbf r=(r_1,\ldots,r_k)\), put
+
+\[
+ L=\sum_{i=1}^k r_i,\qquad
+ a_m=\#\{i:r_i=m\},\qquad
+ Q_d(\mathbf r)=\left(\prod_{i=1}^k r_i\right)
+ \mathbb E\prod_{m\ge1}(C_m)_{a_m},\qquad Q_d(\varnothing)=1.
+\]
+
+Fix an integer \(k\ge1\) and a real \(0<\beta<2/3\). Set
+
+\[
+ p_\beta=\frac{2}{2-3\beta},\qquad
+ P_{k,\beta}(d)=d^{4k+1}+d(d\log_2d)^{kp_\beta}.
+\]
+
+\begin{theorem}[Uniform cycle factorial moments]\label{thm:moments}
+Fix $k\ge1$ and $0<\beta<2/3$. For all sufficiently large $d$, depending on
+$k$ and $\beta$, every list of positive lengths with $L\le N^\beta$ satisfies
+\[
+ Q_d(\mathbf r)\le1+C_{k,\beta}P_{k,\beta}(d)\frac LN.
+ \tag{1.1}\label{eq:1.1}
+\]
+If additionally $r_i\ge4d$ for every $i$, then
+\[
+ 1-C_k\frac{dL}{N}\le Q_d(\mathbf r)
+ \le1+C_{k,\beta}P_{k,\beta}(d)\frac LN.
+ \tag{1.2}\label{eq:1.2}
+\]
+\end{theorem}
+
+Constants are independent of all ratios \(r_i/r_j\). In particular,
+
+\[
+ rs\,\mathbb E[C_r(C_s-\mathbf1_{\{r=s\}})]
+ =1+O_\beta\!\left(P_{2,\beta}(d)\frac{r+s}{N}\right)
+\]
+
+uniformly for \(r,s\ge4d\) and \(r+s\le N^\beta\). Equal lengths are
+covered by the falling factorial, so the cycles are required to be
+distinct.
+
+The displayed growth factor is deliberately not optimized. The
+conclusion is uniform with exponentially small error in \(d\) on every
+fixed exponent range.
+
+\subsection{Functional consequence}\label{functional-consequence}
+
+\begin{theorem}[Truncated functional Erd\H{o}s--Tur\'{a}n law]\label{thm:functional}
+Fix $0<\alpha<2/3$, put $\ell=\log N$, and define, for $0\le u\le\alpha$,
+\[
+ K_d(u)=\sum_{r\le\lfloor N^u\rfloor}C_r,
+ \qquad
+ O_d(u)=\log\operatorname{lcm}\{r\le\lfloor N^u\rfloor:C_r>0\}.
+\]
+Then, in $D([0,\alpha],\mathbb R^2)$ with its Skorokhod $J_1$ topology,
+\[
+ \left(
+ \frac{K_d(u)-u\ell}{\sqrt\ell},
+ \frac{O_d(u)-\tfrac12u^2\ell^2}{\sqrt{\ell^3/3}}
+ \right)_{0\le u\le\alpha}
+ \ \Longrightarrow\
+ \left(W(u),\sqrt3\int_0^u t\,dW(t)\right)_{0\le u\le\alpha}.
+ \tag{1.3}\label{eq:1.3}
+\]
+Here $W$ is one standard Brownian motion, shared by both coordinates. In
+particular, for $b=\lfloor N^\alpha\rfloor$,
+\[
+ \frac{\log\operatorname{lcm}\{r\le b:C_r>0\}
+       -\tfrac12(\log b)^2}{\sqrt{(\log b)^3/3}}
+ \ \Longrightarrow\ \mathcal N(0,1).
+ \tag{1.4}\label{eq:1.4}
+\]
+\end{theorem}
+
+
+
+The proof of the functional consequence, including tightness, is given
+in Sections 8--9. The parameters \(k,\beta,\alpha\) are fixed before
+\(d\to\infty\); no uniform assertion as \(k\to\infty\) or
+\(\beta\uparrow2/3\) is made.
+
+\section{Exact cycle measures and weighted
+words}\label{exact-cycle-measures-and-weighted-words}
+
+Choose \(k\) independent uniform roots, with replacement, independently
+of \(f\). Let \(E_{\mathbf r}\) be the event that their cycles are
+distinct and have the prescribed lengths. Then the finite measure
+
+\[
+ \mu_{\mathbf r}=N^k\mathbb P_0(\,\cdot\,,E_{\mathbf r})
+\]
+
+has total mass \(Q_d(\mathbf r)\). An unrooted ordered cycle family has
+the same weight at every choice of roots on its cycles.
+
+Equivalently, prescribe \(k\) distinguished cyclic binary words with
+these lengths. Let \(A_d\) require all their length-\(d\) windows to be
+distinct. A context is a length-\((d-1)\) window immediately following
+the initial bit of a state. On \(A_d\), a context has at most two
+occurrences. If a context occurs twice, the two preceding bits differ
+and the two following bits differ, so the feedback requirements are
+consistent. If \(m=L-v\), with \(v\) distinct contexts, the family
+occurs with probability \(2^{-v}\). Therefore
+
+\[
+ Q_d^{(m)}(\mathbf r)
+ =2^{m-L}\#\{\text{valid rooted word families with }m\text{ repeated contexts}\}.
+ \tag{2.1}\label{eq:2.1}
+\]
+
+This identity counts all repeats, internal or between cycles. No
+context-simplicity condition is imposed.
+
+\section{A global entropy tail for a fixed number of
+words}\label{a-global-entropy-tail-for-a-fixed-number-of-words}
+
+\subsection{Type counting, including short component
+words}\label{type-counting-including-short-component-words}
+
+For a cyclic binary word of length \(n\), let \(H_h\) be the entropy of
+its empirical \(h\)-block distribution and \(\delta_h=H_h-H_{h-1}\). A
+fixed \(h\)-type contains at most
+
+\[
+ n\,2^{n\delta_h}
+ \tag{3.1}\label{eq:3.1}
+\]
+
+rooted words. For \(h\le n\), use the empirical order-\((h-1)\) Markov
+chain: every word of the type has probability at least
+\(n^{-1}2^{-n\delta_h}\), since its initial block has mass at least
+\(1/n\) and omitting wraparound transition factors only increases the
+product.
+
+The bound is also valid for \(h>n\), a point needed for widely separated
+lengths. An \(h\)-block then contains the entire cyclic word. A fixed
+\(h\)-type determines its necklace, so at most \(n\) rooted words have
+the type. Also \(\delta_h=0\) once \(h-1\ge n\).
+
+Writing \(M=2^h\), the number of empirical types is at most
+
+\[
+ \binom{n+M-1}{M-1}\le[e(1+n/M)]^M.
+ \tag{3.2}\label{eq:3.2}
+\]
+
+Indeed, the nonnegative block counts sum to \(n\). Stars and bars gives
+the first bound in \eqref{eq:3.2}; then
+\(\binom{n+M-1}{M-1}\le\binom{n+M}{M}\le[e(n+M)/M]^M\). No assumption
+that different component types are independent is used.
+
+\subsection{Mixture entropy}\label{mixture-entropy}
+
+For a valid family, sample a position uniformly among its \(L\)
+positions and read the resulting stationary binary process. All
+\(d\)-blocks are distinct, so
+
+\[
+ H_d=\log_2L,\qquad H_d-H_{d-1}=\frac{2m}{L}.
+\]
+
+Stationary conditional entropies decrease with block length. Thus
+
+\[
+ \delta_h\le\frac{H_h}{h}
+ \le\frac{\log_2L-2m(d-h)/L}{h}.
+ \tag{3.3}\label{eq:3.3}
+\]
+
+Let \(J\) identify the component circle and let \(X,Y\) be the
+preceding \(h\)-1 bits and the final bit. Then
+
+\[
+ L\delta_h^{\rm mix}-\sum_i r_i\delta_h(w_i)
+ =L I(Y;J\mid X)\ge0.
+ \tag{3.4}\label{eq:3.4}
+\]
+
+This remains valid for any number of component circles and arbitrary
+lengths. Applying \eqref{eq:3.1}--(3.4), and bounding the rooted prefactor by
+\(L^k\), yields
+
+\[
+ \log_2Q_d^{(m)}(\mathbf r)
+ \le \frac{Lt}{h}
+ +kM\log_2[e(1+L/M)]+k\log_2L-\kappa m,
+ \tag{3.5}\label{eq:3.5}
+\]
+
+where
+
+\[
+ t=\log_2L-h,\qquad \kappa=\frac{2d-3h}{h}.
+\]
+
+\subsection{The sparse threshold}\label{the-sparse-threshold}
+
+Suppose \(d^4\le L\le N^\beta\), and put \(q=\log_2d\) and
+
+\[
+ h=\lfloor\log_2L-\log_2d-\log_2q\rfloor.
+\]
+
+For sufficiently large \(d\), \(h\ge2\) and \(h\le\beta d\),
+
+\[
+ \kappa\ge(2-3\beta)/\beta>0,
+ \qquad kM\log_2[e(1+L/M)]\le 2kL/d.
+\]
+
+Let
+
+\[
+ F=Lt/h+2kL/d+k\log_2L,\qquad
+ m_0=\left\lceil\frac{F+L/d}{\kappa}\right\rceil.
+\]
+
+Summing \eqref{eq:3.5} gives
+
+\[
+ D_{\mathbf r}:=\sum_{m\ge m_0}Q_d^{(m)}(\mathbf r)
+ \le C_\beta2^{-L/d}.
+ \tag{3.6}\label{eq:3.6}
+\]
+
+Furthermore,
+
+\[
+ \frac{2dm_0}{L}
+ \le p_\beta(\log_2d+\log_2\log_2d)+O_{k,\beta}(1).
+ \tag{3.7}\label{eq:3.7}
+\]
+
+For clarity, the algebra behind (3.7) is \[
+ \frac{2dm_0}{L}
+ \le \frac{2d}{2d-3h}
+ \left[t+(2k+1)\frac hd+\frac{kh\log_2L}{L}\right]
+ +\frac{2d}{L}.
+\] The leading multiplier is at most \(p_\beta\);
+\(t\in[\log_2d+\log_2\log_2d,\,
+\log_2d+\log_2\log_2d+1)\), \(h/d\le\beta\), and
+\(h\log_2L/L=O_\beta(d^{-2})\) because \(L\ge d^4\). Also, summation in
+(3.6) uses the finite positive lower bound on \(\kappa\):
+\(\sum_{m\ge m_0}2^{F-\kappa m}\le
+2^{-L/d}/(1-2^{-\kappa})\).
+
+When \(r=\max_i r_i\), \(L/r\le k\). Hence the closing penalty at the
+longest cycle's scale satisfies
+
+\[
+ 2^{2dm_0/r}\le C_{k,\beta}(d\log_2d)^{kp_\beta}.
+ \tag{3.8}\label{eq:3.8}
+\]
+
+For \(L<d^4\) no dense decomposition is necessary. Stationarity also
+gives
+
+\[
+ m\le\frac{L\log_2L}{2d},
+\]
+
+so, for any \(m_{\rm new}\le m\),
+
+\[
+ 2^{2dm_{\rm new}/r}\le L^{L/r}\le L^k\le d^{4k}.
+ \tag{3.9}\label{eq:3.9}
+\]
+
+In either case the needed sparse penalty is bounded by
+
+\[
+ H_{k,\beta}(d)=C_{k,\beta}\left[d^{4k}+(d\log_2d)^{kp_\beta}\right].
+ \tag{3.10}\label{eq:3.10}
+\]
+
+It depends on \(k\), not on the ratios between the component lengths.
+
+\section{Marked stopped collisions with earlier cycles
+present}\label{marked-stopped-collisions-with-earlier-cycles-present}
+
+Let \(\mathbf a=(r_1,\ldots,r_{k-1})\), \(P=\sum_{i=1}^{k-1}r_i\), and let
+\(\mu_{\mathbf a}\) be its scaled ordinary cycle measure. Conditional on
+the recorded rooted cycles, feedback values at all unqueried contexts
+remain independent fair bits: specifying the recorded cycles imposes
+exactly the feedback constraints along them.
+
+Adjoin a new independent uniform root \(X\) and run its ordinary
+trajectory for \(n\) steps. Retain it only if its first \(n+1\) states
+are distinct and outside all the earlier cycles. Let \(J_{\rm int}\)
+count repeated contexts inside that prefix and \(J_{\rm cross}\) count
+prefix queries using contexts of earlier cycles. The latter statistic
+may be bounded after dropping the retention restriction.
+
+\subsection{Internal contacts and marked
+switching}\label{internal-contacts-and-marked-switching}
+
+For \(h>0\), the conjugate endpoint count must include the condition
+\(L_f(y)>h\). On an internal conjugate encounter of the new surviving
+path, both states of the conjugate pair lie in a cycle disjoint from all
+earlier cycles. Their context is therefore unused by every earlier
+cycle. Flipping its feedback bit preserves all earlier marked cycles and
+splits off an \(h\)-cycle.
+
+The resulting marked configurations are a subset of those counted by
+\(Q_d(\mathbf a,h)\). Stationarity of the new uniform root then gives
+
+\[
+ \mathbb E_{\mu_{\mathbf a},X}J_{\rm int}
+ \le\frac1N\sum_{h=1}^{n-1}(n-h)Q_d(\mathbf a,h).
+ \tag{4.1}\label{eq:4.1}
+\]
+
+This is not a conditional-uniformity assertion about \(f\) under
+\(\mu_{\mathbf a}\). It follows from the feedback-flip bijection while
+keeping the previously selected cycles marked. The survival and
+disjointness restrictions ensure the flip leaves those marks unchanged.
+Sorting the list \(({\mathbf a},h)\) is permitted because \(Q\) is
+symmetric.
+
+Here is the normalization and bijection in \eqref{eq:4.1}. Write
+\(\mathcal C_f(y)\) for the cycle containing \(y\) and \(A\) for the
+union of the previously marked cycles. Feedback-bit switching gives \[
+ \int\!\mu_{\mathbf a}(d(f,\text{marks}))
+ \sum_{\substack{y:T_f^hy=\bar y,\ L_f(y)>h\\
+                  \mathcal C_f(y)\cap A=\varnothing}}1
+ \le Q_d(\mathbf a,h).
+ \tag{4.1a}\label{eq:4.1a}
+\] To see this, flip the bit at \(u(y)\). In the new permutation the
+cycle containing \(\bar y\) has length \(h\), and \(y\) is outside it.
+All earlier marked cycles, including their roots, are unchanged. The map
+is injective: from the new marked \(h\)-cycle rooted at \(\bar y\),
+recover \(y\), flip the same bit, and recover the original
+configuration. Counting all marked \(h\)-cycles can only enlarge the
+image. The uniform feedback law is invariant under this flip. The factor
+\(h\) in \(Q_d(\mathbf a,h)\) counts its possible new roots, including
+when \(h\) equals one of the earlier lengths.
+
+For a retained prefix and query times \(i<j\), take \(y=T_f^iX\) and
+\(h=j-i\). Conditional on \(f\) and the earlier marks, \(y\) is uniform.
+The retained prefix is in a cycle disjoint from \(A\); disjointness of a
+prefix from \(A\) implies this because \(A\) is a union of complete
+cycles. It also has \(L_f(y)>n>h\). Dropping the stronger retention
+conditions and applying \eqref{eq:4.1a} gives \(Q_d(\mathbf a,h)/N\) for each
+pair. There are \(n-h\) query pairs with separation \(h\), proving
+(4.1). No unconditioned stationarity assertion is substituted for this
+marked calculation.
+
+\subsection{Cross contacts}\label{cross-contacts}
+
+For fixed \(f\) and fixed earlier cycles, every iterate of \(X\) is
+uniform because \(T_f\) is a permutation. The earlier cycles use at most
+\(P\) contexts. Each context has exactly two possible preceding states,
+so
+
+\[
+ \mathbb E_{\mu_{\mathbf a},X}J_{\rm cross}
+ \le\frac{2nP}{N}Q_d(\mathbf a).
+ \tag{4.2}\label{eq:4.2}
+\]
+
+On a retained prefix, each context occurs at most twice across its query
+states and the earlier cycles: a context has only two preceding states,
+and all these states are distinct. Hence a prefix query cannot
+simultaneously repeat an earlier prefix query and a context in the
+marked cycles. Thus the reused-query count is exactly
+\(J=J_{\rm int}+J_{\rm cross}\) on retained histories. Both quantities
+are set to zero on discarded histories; only the cross bound is enlarged
+by dropping retention.
+
+Consequently the ordinary open-repeat statistic \(J\) satisfies
+
+\[
+ \mathbb E J\le
+ \frac1N\sum_{h=1}^{n-1}(n-h)Q_d(\mathbf a,h)
+ +\frac{2nP}{N}Q_d(\mathbf a).
+ \tag{4.3}\label{eq:4.3}
+\]
+
+The first term involves the same number of cycles but strictly smaller
+total length. The second involves one fewer cycle. This is the induction
+structure.
+
+\section{Longest-last forced closure}\label{longest-last-forced-closure}
+
+Sort \(r_1\le\cdots\le r_k=r\). Keep the earlier cycles under
+\(\mu_{\mathbf a}\). Starting from a new uniform root, expose \(r-d\)
+ordinary open steps, then force the final \(d\) outputs to equal the
+initial state. Never change an already prescribed feedback value.
+Success requires first return at exactly \(r\) and disjointness from all
+earlier cycles. Complete unqueried feedback values fairly.
+
+Operationally, first sample the \emph{recorded} marked-cycle histories
+from the projection of \(\mu_{\mathbf a}\), which is a finite measure.
+Sample only the still-unqueried feedback values as the new trajectory
+needs them, and complete the remaining values at the end. This avoids
+treating the biased law after an earlier forced closure as an ordinary
+feedback law. Every previously selected cycle constrains only its own
+queried contexts.
+
+Denote this finite successful measure by \(\nu_{\mathbf a;r}\). Its mass
+is at most \(Q_d(\mathbf a)\), not necessarily at most one. Let \(K\)
+count closing queries whose feedback value has already been fixed
+strictly before that query is made: by an earlier marked cycle, by the
+current open path, or by an earlier query in the current closing
+segment. In particular, two occurrences of a context within the closing
+segment contribute one to \(K\). On successful histories,
+
+\[
+ d\nu_{\mathbf a;r}=2^{-K}d\mu_{\mathbf a,r},
+ \tag{5.1}\label{eq:5.1}
+\]
+
+For an atom with \(v_{\rm old}\) old contexts and \(v\) contexts in the
+completed family, the scaled ordinary word weight is \(2^{-v}\). The
+forced construction samples the new root with factor \(N^{-1}\) and
+samples only \(v-v_{\rm old}-(d-K)\) additional feedback bits fairly.
+Its weight is therefore \(2^{-v_{\rm old}}N^{-1}
+2^{-[v-v_{\rm old}-(d-K)]}=2^{-v-K}\). Unused fair completion is
+identical. This proves \eqref{eq:5.1} at the atom level.
+
+For a fixed full cycle family, let \(m_{\rm new}\) count all repeats
+involving the last cycle: internal repeats plus contexts it shares with
+earlier cycles. Earlier cycles' internal repeats are not counted in
+\(m_{\rm new}\). If \(J\) counts reused queries in the last cycle's open
+part (with earlier contexts known at time zero), then
+
+\[
+ J+K=m_{\rm new}.
+ \tag{5.2}\label{eq:5.2}
+\]
+
+Average only the root of the last cycle. A shared context belongs to its
+closing part with probability \(d/r\); an internal repeated context
+contributes with probability at most \(2d/r\). Thus
+
+\[
+ \mathbb E_{\rm root}K\le2dm_{\rm new}/r,
+ \quad \mathbb E_{\rm root}J\ge a_rm_{\rm new},
+ \quad a_r=1-2d/r.
+\]
+
+The function \(j\mapsto j2^{j-m_{\rm new}}\) is increasing and convex
+for \(j\ge0\). Therefore
+
+\[
+ \mathbb E_{\rm root}[J2^{-K}]
+ \ge a_rm_{\rm new}2^{-2dm_{\rm new}/r}.
+ \tag{5.3}\label{eq:5.3}
+\]
+
+On the sparse class, (3.8) or (3.9) bounds the inverse factor by
+\(H_{k,\beta}\). The forced open part has exactly the ordinary
+\(\mu_{\mathbf a}\)-plus-uniform-root law; success only restricts it. To
+make the integration explicit, let \(A_{\rm sp}\) be the sparse class,
+\(\mu=\mu_{\mathbf a,r}\), \(\nu=\nu_{\mathbf a;r}\), and
+\(H=H_{k,\beta}(d)\). Then \[
+ \begin{aligned}
+ \frac{a_r}{H}\int_{A_{\rm sp}}m_{\rm new}\,d\mu
+ &\le \int_{A_{\rm sp}}J2^{-K}\,d\mu\\
+ &=\int_{A_{\rm sp}}J\,d\nu
+ \le \mathbb E_{\mu_{\mathbf a},X}J.
+ \end{aligned}
+ \tag{5.3a}\label{eq:5.3a}
+\] The sparse class and \(m_{\rm new}\) are invariant under re-rooting
+the last cycle, so the first inequality follows by integrating the
+root-averaged bound \eqref{eq:5.3}. The last inequality discards a restriction to
+successful histories; it does not assert that the feedback law after
+forced closure is ordinary. Using \(1-2^{-K}\le K\) now gives
+
+\[
+\begin{split}
+0\le Q_d(\mathbf a,r)-\nu_{\mathbf a;r}(\Omega)
+&\le\frac{2d}{r}\int_{\rm sparse}m_{\rm new}\,d\mu_{\mathbf a,r}+D_{\mathbf a,r}\\
+&\le\frac{2dH_{k,\beta}}{r-2d}\mathbb E J+D_{\mathbf a,r}.
+\end{split}
+\tag{5.4}\label{eq:5.4}
+\]
+
+Take \(r\ge4d\) and \(n=r-d\). Combining \eqref{eq:4.3}, (5.4), and
+\(\nu_{\mathbf a;r}(\Omega)\le Q_d(\mathbf a)\), yields the key finite
+recurrence
+
+\[
+\boxed{
+Q_d(\mathbf a,r)\le Q_d(\mathbf a)
++\frac{2dH_{k,\beta}}{r-2d}
+ \left[
+ \frac1N\sum_{h=1}^{n-1}(n-h)Q_d(\mathbf a,h)
+ +\frac{2nP}{N}Q_d(\mathbf a)
+ \right]+D_{\mathbf a,r}.
+}
+\tag{5.5}\label{eq:5.5}
+\]
+
+\(D=0\) for total length below \(d^4\); otherwise it is bounded by
+(3.6).
+
+No long cycle is charged at a shorter cycle's rate. Prior cycles remain
+under their ordinary finite measure, rather than being incorrectly
+treated as an unbiased probability law after earlier forced closures.
+
+\section{Close the upper induction}\label{close-the-upper-induction}
+
+\subsection{\texorpdfstring{Base: all lengths below
+\(4d\)}{Base: all lengths below 4d}}\label{base-all-lengths-below-4d}
+
+Let \(B\) mean that every prescribed cyclic word is primitive and no two
+words represent the same necklace. \(A_d\) implies \(B\). On \(B\) with
+no repeated contexts, the weighted integrand is exactly one.
+
+For two distinct positions, Appendix A proves the fully wrapped-window
+bound \[
+ \mathbb P\{B\text{ and their }(d-1)\text{-contexts agree}\}
+ \le 2^{-(d-1)}.
+\] This includes component words shorter than the window and equal
+component lengths; the event \(B\) removes the periodic degeneracies.
+
+A union bound, together with \(m\le L\log_2L/(2d)\), implies
+
+\[
+ Q_d(\mathbf r)\le1+\frac{L^{2k+2}}N,
+ \qquad \max_i r_i<4d,\quad L<4kd.
+ \tag{6.1}\label{eq:6.1}
+\]
+
+\subsection{Crude bound}\label{crude-bound}
+
+Induct first on the number of cycles \(k\), then strongly on total
+length \(L\) for fixed \(k\). The target crude bound is
+\(Q_d(\mathbf r)\le 2^k\). The base (6.1) holds for large \(d\). When
+\(r=\max_i r_i\ge4d\), all same-\(k\) moments in \eqref{eq:5.5} have total length
+\(P+h<L\). The lower-order moment is bounded by \(2^{k-1}\). Therefore
+
+\[
+ Q_d(\mathbf a,r)\le2^{k-1}
+ +C_k dH_{k,\beta}(d)\frac LN+D_{\mathbf a,r}.
+\]
+
+The extra terms tend to zero uniformly for \(L\le N^\beta\), since \(H\)
+is polynomial and \(\beta<1\). Thus they fit within the fixed gap from
+\(2^{k-1}\) to \(2^k\). This closes the induction, including moment
+lists that contain very short components. In particular, \(Q_d(h)\le2\)
+for all \(h\le N^\beta\).
+
+This is a strong induction on an integer total length, within an outer
+induction on the fixed order. For a fixed target order \(k\), take \(d\)
+large enough for all orders at most \(k\). At each non-base step the
+strictly smaller-order term is bounded by \(2^{k-1}\), while the
+same-order terms have strictly smaller total. Thus there is a fixed gap
+available for the uniformly vanishing error; no unproved sharp estimate
+is used to initialize the recurrence.
+
+\subsection{Sharp constant}\label{sharp-constant}
+
+Substitute the crude bounds back into \eqref{eq:5.5}:
+
+\[
+ Q_d(\mathbf a,r)\le Q_d(\mathbf a)+C_{k,\beta}dH_{k,\beta}(d)\frac LN+D_{\mathbf a,r}.
+\]
+
+Repeatedly remove a longest component. There are at most \(k\) steps.
+The base (6.1) costs at most a polynomial times \(1/N\), absorbed by
+\(P_{k,\beta}(d)L/N\). For \(L\ge d^4\) the dense error is at most
+\(C_\beta2^{-d^3}\), also absorbed. This proves \eqref{eq:1.1}.
+
+\section{A matching lower bound from several middle-first
+bridges}\label{a-matching-lower-bound-from-several-middle-first-bridges}
+
+Only the one-cycle bound \(Q_d(h)\le2\) is needed in this section. The
+restriction \(L\le N^\beta\) is used here only to ensure this bound at
+the required lengths. Thus the numerical lower-bound constant depends
+only on \(k\), although the threshold for sufficiently large \(d\) may
+also depend on \(\beta\).
+
+For an ordinary trajectory of \(n\ge d\) steps from a uniform root, let
+\(R_{n,d}\) mean that some query in its final \(d\) steps repeats an
+earlier context. The stopped conjugate-switch identity and a union bound
+over time separations give
+
+\[
+ \mathbb P(R_{n,d})\le\frac{d+1}{N}\sum_{h\le n}Q_d(h)
+ \le\frac{2(d+1)n}{N}.
+ \tag{7.1}\label{eq:7.1}
+\]
+
+The event of a prior return costs \(N^{-1}\sum_{h\le n}Q_d(h)\); on
+survival a repeated context is a conjugate encounter, and each
+separation appears at most \(d\) times in the terminal query block.
+Coupling the last \(d\) fresh outputs to fair bits also gives
+
+\[
+ d_{\rm TV}(\mathcal L(X_0,X_n),U_N\otimes U_N)
+ \le\frac{2(d+1)n}{N}.
+ \tag{7.2}\label{eq:7.2}
+\]
+
+Coordinate reversal conjugates the inverse Thorp permutation to the same
+model with its feedback arguments reversed, so these estimates hold
+backwards too.
+
+More explicitly, the one-cycle instance of \eqref{eq:4.1a} bounds the stopped
+conjugate endpoint count by \(Q_d(h)\). With a uniform root, a prior
+return has probability \(N^{-1}\sum_{h\le n}Q_d(h)\). On survival, a
+pair of equal contexts consists of distinct conjugate states. For each
+separation \(h\), there are at most \(d\) pairs with the later query
+among the final \(d\) queries. This proves \eqref{eq:7.1}.
+
+For (7.2), at each of the final \(d\) steps supply a new independent
+fair comparison bit. If its context is new, choose the freshly revealed
+feedback value to make the actual output equal that bit. If the context
+is old, continue the comparison with its independent bit. The comparison
+endpoint is a uniform \(d\)-bit state independent of the initial root;
+failure of the coupling requires terminal reuse. This constructs the
+comparison, rather than conditioning a collection of outputs on the
+event that all are fresh.
+
+If \(R_d\) reverses all \(d\) coordinates, direct calculation gives \[
+ R_dT_f^{-1}R_d=T_{f\circ R_{d-1}}.
+\] The transformed feedback table is again uniform and independent, so
+the same stopped-reuse and endpoint estimates hold backwards.
+
+\subsection{Reference construction}\label{reference-construction}
+
+Assume all \(r_i\ge4d\) and put \(t_i=r_i-2d\). In a common ordinary
+feedback environment, choose independent uniform roots \(v_i\) and run
+middle paths of \(t_i\) steps to \(z_i\). Independently choose uniform
+\(w_i\). Add the two unique \(d\)-step shift paths
+
+\[
+ z_i\longrightarrow w_i\longrightarrow v_i.
+\]
+
+Let \(G\) require all middle states to be distinct, within and between
+paths, and all \(2kd\) added query contexts to be mutually distinct and
+absent from every middle queried context. On \(G\) assign the fresh
+feedback values to realize the added outputs and complete all remaining
+values fairly. This produces \(k\) disjoint cycles of the required
+lengths.
+
+\subsection{Failure bounds}\label{failure-bounds}
+
+Internal failure of a middle path costs at most \(2t_i/N\).
+
+For different middle paths of lengths \(t_i,t_j\), conditional on any
+fixed \(f\), an intersection entails
+
+\[
+ v_j=T_f^{a-b}v_i,
+ \qquad 0\le a\le t_i,\quad0\le b\le t_j.
+\]
+
+There are at most \(t_i+t_j+1\) distinct offsets. Thus
+
+\[
+ \mathbb P(\text{middle }i\text{ meets middle }j\mid f)
+ \le(t_i+t_j+1)/N.
+ \tag{7.3}\label{eq:7.3}
+\]
+
+There is no \(t_it_j/N\) loss here.
+
+For an added path, separate contacts with its \textbf{own} middle from
+contacts with \textbf{other} middles. For self-contacts and contacts
+with its own middle, consider just that single ordinary middle and its
+independent seed \(w_i\). Until the first reused query, its forward
+reference extension agrees with an ordinary extension of that middle, by
+deferred decisions. Formula \eqref{eq:7.1} with \(n=t_i+d\) bounds this failure.
+The other extension is explored backwards from \(v_i\), and the
+reverse-time version of \eqref{eq:7.1} gives the same bound. A backward step from
+\(y=(u,z)\) has predecessor \((z\oplus f(u),u)\) and queries exactly
+\(f(u)\), the same entry as the forward step into \(y\). Hence the
+reverse-time reuse event controls precisely the relevant forward-context
+contacts. These are marginal, unconditional estimates; they do not
+require the feedback law to remain ordinary after conditioning on every
+other trace.
+
+For contacts with a different middle \(j\), use the reference
+construction directly. Conditional on \(f\), every fixed context in the
+added path \(z_i\) to \(w_i\) is uniform: it uses a suffix of the
+uniform \(z_i\) and a prefix of the independent uniform \(w_i\). The
+path \(w_i\) to \(v_i\) has the same property. These contexts are
+independent of a specified query context in middle \(j\), since
+\((v_i,w_i)\) and \(v_j\) are independent conditional on \(f\). Equality
+therefore has probability \(2/N\). A union bound over at most \(d t_j\)
+pairs for each added path costs \(2dt_j/N\). Summing all the self and
+other-middle bounds costs \(O_k(dL/N)\).
+
+For the two added paths belonging to the same cycle, their possible
+cross contacts depend only on \((z_i,w_i,v_i)\). By (7.2) this
+triple is within \(2(d+1)t_i/N\) of three independent uniform states.
+Under the independent law, \(z_iw_iv_i\) is a linear independent-bit
+word; each of the \(d^2\) possible cross-window matches has probability
+\(2/N\), including overlapping windows. This again sums to
+\(O_k(dL/N)\).
+
+For added paths belonging to different cycles, no endpoint approximation
+is needed. Conditional on \(f\), the pairs \((v_i,w_i)\) are independent
+across \(i\), \(z_i\) is uniform, and each individual added context is
+uniform. Thus each cross-cycle pair of added contexts agrees with
+probability \(2/N\). There are \(O(k^2d^2)\) such pairs, costing
+\(O(k^2d^2/N)\), absorbed into \(O_k(dL/N)\).
+
+All estimates are unconditional union bounds; the failure events are not
+assumed independent. Together,
+
+\[
+ \mathbb P_{\rm ref}(G)\ge1-C_k dL/N.
+ \tag{7.4}\label{eq:7.4}
+\]
+
+\subsection{Exact good-history weight}\label{exact-good-history-weight}
+
+Fix the middle traces, whose queried contexts number \(v_M\), and the
+words \(w_i\). The ordinary root-and-middle probability contains
+\(N^{-k}2^{-v_M}\). On \(G\) the \(2kd\) prescribed fresh outputs have
+probability \(N^{-2k}\); scaling the ordinary law by \(N^k\) leaves
+weight \(2^{-(v_M+2kd)}\). The reference chooses all \(w_i\) with
+probability \(N^{-k}\), giving the same weight \(N^{-2k}2^{-v_M}\).
+
+The reference construction only retains feedback values queried by the
+middles. Values at added contexts are assigned after choosing the
+bridges, and the rest are freshly completed. It does not require an
+initially sampled unused feedback value to equal a forced value; those
+initially unused values have been marginalized. This distinction is part
+of the weight calculation, not an assumption about their conditional
+distribution.
+
+Thus the scaled ordinary cycle measure equals the reference measure on
+\(G\), including the same uniform completion of unused feedback values.
+Therefore
+
+\[
+ Q_d(\mathbf r)\ge\mathbb P_{\rm ref}(G)\ge1-C_kdL/N.
+\]
+
+This proves the lower half of \eqref{eq:1.2}. It needs neither conditional
+independence of endpoints given all other traces nor a joint-collision
+moment theorem.
+
+\section{Fixed-order moments and the truncated Gaussian
+field}\label{fixed-order-moments-and-the-truncated-gaussian-field}
+
+Fix \(0<\alpha<2/3\) and choose \(\beta\) strictly between \(\alpha\)
+and \(2/3\). Let \(b=\lfloor N^\alpha\rfloor\) and \(\ell=\log N\). For
+every fixed moment order \(m\) and all sufficiently large \(d\), all
+lists of at most \(m\) lengths bounded by \(b\) have total length
+\(\le N^\beta\). The moment comparison in this section is initially
+restricted to \(4d\le r\le b\); the omitted shorter lengths are restored
+after the tightness argument. On this restricted range, (1.2) gives
+
+\[
+ \max_{1\le j\le m}\ \sup_{4d\le r_1,\ldots,r_j\le b}
+ |Q_d(r_1,\ldots,r_j)-1|
+ \le \varepsilon_{d,m},\qquad
+ \varepsilon_{d,m}=d^{O_{m,\beta}(1)}N^{\alpha-1}.
+ \tag{8.1}\label{eq:8.1}
+\]
+
+This is smaller than every negative power of \(d\) for fixed \(m\).
+
+Let \(Z_r\), \(4d\le r\le b\), be independent Poisson variables of means
+\(1/r\). Their normalized factorial moments \(Q\) are exactly one.
+Ordinary moments of additive cycle statistics expand over partitions of
+their selected cycle occurrences into groups that refer to the same
+cycle. Each block contributes one harmonic summation. For logarithmic
+weights, a block of multiplicity a contributes at most
+
+\[
+ \sum_{r\le b}(\log r)^a/r=O_a(\ell^{a+1}).
+\]
+
+Consequently the error in a fixed raw \(m\)-th moment of the logarithmic
+product is \(O_m(\varepsilon_{d,m}\ell^{2m})\). Centering and Gaussian
+normalization multiply this only by further powers of \(\ell\). All
+normalized moment errors vanish. The same argument applies to arbitrary
+finite collections of count and log-product increments. The
+corresponding Poisson statistics have Gaussian limits and
+moment-determinate limiting distributions.
+
+For completeness, the reference Gaussian limit itself needs no
+permutation-order theorem. At positions \(t_r=\log r/\ell\), a linear
+combination of finitely many count and normalized log-product increments
+has centered Poisson form \[
+ \frac1{\sqrt\ell}\sum_{4d\le r\le b}
+        g(t_r)(Z_r-1/r),
+\] where \(g\) is a bounded, piecewise continuous function. Its variance
+converges to \(\int_0^\alpha g(t)^2\,dt\) by harmonic Riemann sums. Its
+cumulant of order \(j\ge3\) is \[
+ \ell^{-j/2}\sum_{4d\le r\le b}\frac{g(t_r)^j}{r}
+ =O_j(\ell^{1-j/2})=o(1).
+\] Thus its moments converge to Gaussian moments. The Gaussian law is
+moment-determinate; the multivariate statement follows by the
+Cramér--Wold argument. The log-product coordinate corresponds to the
+weight \(\sqrt3\,t\), so the common limiting Brownian motion gives
+\(\bigl(W(u),\sqrt3\int_0^u t\,dW(t)\bigr)\).
+
+\begin{corollary}[Bounded additive tests]\label{cor:additive}
+Fix $0<\alpha<2/3$, put $\ell=\log N$, and let
+$g_1,\ldots,g_q$ be a fixed finite family of bounded piecewise-continuous
+real functions on $[0,\alpha]$. Then
+\[
+ \left(
+ \frac1{\sqrt\ell}\sum_{4d\le r\le N^\alpha}
+ g_j\!\left(\frac{\log r}{\ell}\right)(C_r-1/r)
+ \right)_{j=1}^q
+ \Longrightarrow \mathcal N_q(0,\Sigma),
+ \qquad
+ \Sigma_{ij}=\int_0^\alpha g_i(t)g_j(t)\,dt.
+\]
+\end{corollary}
+\begin{proof}
+Apply the preceding factorial-moment comparison to each linear combination
+of the $g_j$. The Poisson reference has variance converging to the stated
+integral and cumulants of every fixed order $m\ge3$ of size
+$O_m(\ell^{1-m/2})$. Its normalized moments converge to Gaussian moments;
+the comparison transfers them. Cram\'{e}r--Wold gives the joint conclusion,
+including singular covariance matrices.
+\end{proof}
+
+
+\subsection{Tightness, not just finite-dimensional
+convergence}\label{tightness-not-just-finite-dimensional-convergence}
+
+First omit lengths below \(4d\). Center by the exact Poisson-reference
+harmonic sums. In the log-product coordinate use weights
+\(\sqrt3\log r/\ell\), so both coordinates are sums with bounded
+weights, divided by \(\sqrt\ell\).
+
+Extend each truncated centered process constantly beyond \(\alpha\) to
+the next point of the full grid \(u=j/\ell\). Interpolate on this full
+grid and then restrict to \([0,\alpha]\). A grid interval containing
+\(m\ge1\) full mesh steps has reference Poisson intensity \(O(m)\). For
+either normalized coordinate its fourth centered Poisson moment is at
+most \[
+ \frac{C(m^2+m)}{\ell^2}.
+\] Expansion into raw moments of orders at most four and \eqref{eq:8.1} gives the
+same bound for the actual centered coordinate, plus a uniform remainder
+\(R_d\) that is smaller than every power of \(1/\ell\). For example, the
+crude bound \(R_d=O(\varepsilon_{d,4}(1+\ell)^6)\) suffices. Since
+\(m\ge1\), absorb this remainder into a constant multiple of
+\((m/\ell)^2\).
+
+Linearly interpolate the grid values. Within a grid cell an increment is
+a fraction \(\theta\) of the grid increment. Its fourth moment is at
+most \(C\theta^4/\ell^2\le C|u-v|^2\), since \(\theta=\ell|u-v|\le1\).
+Across cells split an interval into its first partial cell, full grid
+part, and final partial cell. The inequality
+\(|x+y+z|^4\le27(|x|^4+|y|^4+|z|^4)\) gives the uniform continuity bound
+\(C|u-v|^2\). The constant extension makes the final mesh cell a full
+cell as well; no uniform estimate for an arbitrarily shortened
+interpolation cell is needed. The fourth-moment tightness criterion
+therefore applies to the interpolated processes.
+
+To compare with the original step processes, let \(D_j\) count all
+cycles in one logarithmic grid bin. Its harmonic intensity is bounded by
+an absolute constant. The upper moment theorem at orders at most four
+gives \(\mathbb ED_j^4\le C\), uniformly over the bins. There are
+\(O(\ell)\) bins, so for every \(\eta>0\), \[
+ \mathbb P\{\max_jD_j>\eta\sqrt\ell\}
+ \le \frac{C}{\eta^4\ell}\longrightarrow0.
+\] Within a bin, the normalized log-product oscillation is at most a
+fixed multiple of \(D_j/\sqrt\ell\), because \(\log r/\ell\le\alpha\).
+The deterministic reference centerings have oscillation
+\(O(1/\sqrt\ell)\) there. Thus both step processes are uniformly close
+in probability to the tight interpolations.
+
+Below length \(4d\), \(Q_d(r)\le2\) implies expected count \(O(\log d)\)
+and expected log-product \(O((\log d)^2)\). Both vanish at their
+respective normalizations. This also handles the initial interval near
+\(u=0\). Centering by exact harmonic sums or by the displayed polynomial
+centerings differs by a uniformly negligible quantity.
+
+Therefore, with
+
+\[
+ K_d(u)=\sum_{r\le N^u}C_r,\qquad
+ B_d(u)=\sum_{r\le N^u}C_r\log r,
+\]
+
+we obtain convergence in \(D([0,\alpha],\mathbb R^2)\), with continuous
+limiting paths:
+
+\[
+ \left(
+ \frac{K_d(u)-u\ell}{\sqrt\ell},\quad
+ \frac{B_d(u)-\tfrac12u^2\ell^2}{\sqrt{\ell^3/3}}
+ \right)
+ \Longrightarrow
+ \left(W(u),\sqrt3\int_0^u t\,dW(t)\right).
+ \tag{8.2}\label{eq:8.2}
+\]
+
+This argument does not require a total-variation approximation of the
+full initial cycle-count vector. Fixed-order estimates with
+superpolynomially small errors suffice for the moment and tightness
+argument. Section 10 separately obtains total-variation approximation on
+sets of bounded harmonic mass.
+
+\section{Product to LCM}\label{product-to-lcm}
+
+For all \(r,s\le b\), the all-positive-length upper theorem gives, for
+large \(d\),
+
+\[
+ \mathbb EC_r\le2/r,\qquad
+ \mathbb E[C_r(C_s-\mathbf1_{r=s})]\le2/(rs).
+\]
+
+Let \(D_m=\sum_{m\mid r,\ r\le b}C_r\). The exact arithmetic identity is
+
+\[
+ B_d(\alpha)-\log\operatorname{lcm}\{r\le b:C_r>0\}
+ =\sum_{m\le b}\Lambda(m)(D_m-1)_+.
+\]
+
+The preceding harmonic bounds imply
+
+\[
+ \mathbb E(D_m-1)_+
+ \le\min\left\{\frac{2H_{\lfloor b/m\rfloor}}m,
+ \frac{H_{\lfloor b/m\rfloor}^2}{m^2}\right\}.
+\]
+
+Put \(t=\log b\). The elementary Chebyshev bound
+\(\psi(x)=\sum_{m\le x}\Lambda(m)=O(x)\) and partial summation give \[
+ \sum_{m\le t}\frac{\Lambda(m)}m=O(\log t),\qquad
+ \sum_{m>t}\frac{\Lambda(m)}{m^2}=O(1/t).
+ \tag{9.1}\label{eq:9.1}
+\] For completeness, the product of primes \(p\) for which some power
+satisfies \(n<p^a\le2n\) divides \(\binom{2n}{n}\), and there is at most
+one such power for each prime. Thus
+\(\psi(2n)-\psi(n)\le\log\binom{2n}{n}\le2n\log2\); summing over dyadic
+intervals proves \(\psi(x)=O(x)\). In the harmonic bound above,
+\(H_{\lfloor b/m\rfloor}=O(t)\) uniformly. Splitting at \(m=t\)
+therefore yields \[
+ \begin{aligned}
+ \mathbb E\bigl(B_d(\alpha)-O_d(\alpha)\bigr)
+ &\ll t\sum_{m\le t}\frac{\Lambda(m)}m
+       +t^2\sum_{m>t}\frac{\Lambda(m)}{m^2}\\
+ &=O(\log b\,\log\log b)=o(\ell^{3/2}).
+ \end{aligned}
+ \tag{9.2}\label{eq:9.2}
+\]
+
+The discrepancy is nondecreasing with the cutoff, so the bound is
+uniform on \(0\le u\le\alpha\). Markov's inequality transfers (8.2) from
+\(B_d(u)\) to
+
+\[
+ O_d(u)=\log\operatorname{lcm}\{r\le N^u:C_r>0\}.
+\]
+
+This proves Theorem~\ref{thm:functional}, including its scalar consequence.
+
+This is a truncated theorem. The dense-tail estimate used above requires
+\(\kappa>0\) in \eqref{eq:3.5}; the argument does not establish the full
+permutation-order limit.
+
+
+\begin{corollary}[Lower bounds for the full permutation]\label{cor:full-lower}
+For every $\varepsilon>0$,
+\[
+ \mathbb P\!\left\{
+ \log\operatorname{ord}(T_f)
+ \ge(2/9-\varepsilon)(\log N)^2\right\}\longrightarrow1,
+ \qquad
+ \mathbb P\!\left\{\sum_{r=1}^N C_r
+ \ge(2/3-\varepsilon)\log N\right\}\longrightarrow1.
+\]
+\end{corollary}
+\begin{proof}
+For each fixed $\alpha<2/3$, Theorem~\ref{thm:functional} gives the laws of
+large numbers $O_d(\alpha)/\ell^2\to\alpha^2/2$ and
+$K_d(\alpha)/\ell\to\alpha$ in probability. The full order and count
+dominate their truncated counterparts. Choose a fixed $\alpha$ sufficiently
+close to $2/3$. No uniform estimate as $\alpha\uparrow2/3$ is used.
+\end{proof}
+
+
+\section{Poisson limits and further cycle laws}\label{sec:poisson}
+The moment theorem gives a growing-dimensional total-variation result when
+the total harmonic mass of the observed lengths is bounded. This is
+different from approximating the entire initial vector through a power of $N$.
+
+\begin{theorem}[Bounded harmonic mass]\label{thm:bounded-mass}
+Fix $0<\alpha<2/3$ and $\Lambda<\infty$. Let
+$I_d\subseteq\{r:4d\le r\le N^\alpha\}$ satisfy
+$\lambda_d=\sum_{r\in I_d}r^{-1}\le\Lambda$. Then
+\[
+ d_{\rm TV}\!\left(
+ \mathcal L((C_r)_{r\in I_d}),
+ \bigotimes_{r\in I_d}\operatorname{Poisson}(1/r)
+ \right)\longrightarrow0.
+ \tag{10.1}\label{eq:10.1}
+\]
+The cardinality of $I_d$ may tend to infinity.
+\end{theorem}
+
+\subsection{Finite inclusion--exclusion}
+We give a finite comparison that makes the order of limits explicit.
+For a vector $X=(X_i)_{i\in I}$ of nonnegative integers on a finite set,
+write its ordered factorial moment measures as
+\[
+ \mu_j(i_1,\ldots,i_j)
+ =\mathbb E\prod_{i\in I}(X_i)_{a_i},
+ \qquad a_i=\#\{v:i_v=i\}.
+\]
+Let $Y_i$ be independent Poisson variables with means $\lambda_i$, put
+$\lambda=\sum_i\lambda_i$, and let
+$\pi_j(i_1,\ldots,i_j)=\prod_v\lambda_{i_v}$.
+The norm $\|\cdot\|_1$ below is total absolute mass on $I^j$.
+
+\begin{lemma}[Finite factorial-moment comparison]\label{lem:finite-ie}
+If $\mu_p(I^p)<\infty$ for an integer $p\ge1$, then
+\[
+ \begin{aligned}
+ d_{\rm TV}(\mathcal L(X),\mathcal L(Y))
+ \le{}&\sum_{j=1}^{p-1}\frac{2^j}{j!}\|\mu_j-\pi_j\|_1\\
+ &+\frac{2^p}{p!}\bigl(\mu_p(I^p)+\lambda^p\bigr).
+ \end{aligned}
+ \tag{10.2}\label{eq:10.2}
+\]
+\end{lemma}
+\begin{proof}
+Put $M=\sum_iX_i$ and take $0\le F\le1$ on configurations. For $q<p$,
+use the symmetric test
+$F_q(i_1,\ldots,i_q)=F(\sum_{v=1}^q\delta_{i_v})$ on ordered distinct
+\emph{occurrences}; occurrences at the same location are still distinct.
+After selecting $q$ occurrences, approximate the event that no others
+remain by
+\[
+ \sum_{j=0}^{p-q-1}\frac{(-1)^j}{j!}(M-q)_j.
+\]
+For each integer $n\ge0$, the error in this approximation to
+$\mathbf1_{\{n=0\}}$ is at most $(n)_{p-q}/(p-q)!$.
+Indeed, when $n>0$ the partial binomial sum is
+$(-1)^{p-q-1}\binom{n-1}{p-q-1}$; it vanishes when the cutoff exceeds $n$,
+and otherwise its absolute value is at most $\binom{n}{p-q}$.
+
+Divide by $q!$ to compensate for ordering the selected occurrences.
+The error for this $q$ is at most
+$\mu_p(I^p)/(q!(p-q)!)$. The omitted event $M\ge p$ costs at most
+$\mu_p(I^p)/p!$. Summing over $q=0,\ldots,p-1$ bounds the remainder by
+$2^p\mu_p(I^p)/p!$.
+For the Poisson vector the analogous remainder is $2^p\lambda^p/p!$.
+At total factorial order $j<p$, the sum of absolute coefficients is
+\[
+ \sum_{q=0}^j\frac1{q!(j-q)!}=\frac{2^j}{j!}.
+\]
+The order-zero terms agree. Subtraction of the two finite expansions and
+supremization over indicator tests $F$ prove the lemma.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:bounded-mass}]
+Choose $\alpha<\beta<2/3$. For every fixed $j$, all ordered lists of $j$
+lengths from $I_d$ eventually have total at most $N^\beta$. Theorem~\ref{thm:moments}
+gives a uniform error $\varepsilon_{d,j}\to0$ and hence
+\[
+ \|\mu_j-\pi_j\|_1\le\varepsilon_{d,j}\lambda_d^j,
+ \qquad
+ \mu_j(I_d^j)\le(1+\varepsilon_{d,j})\lambda_d^j.
+\]
+Substitution in \eqref{eq:10.2} yields, for fixed $p$,
+\[
+ d_{\rm TV}\le
+ \sum_{j=1}^{p-1}\frac{(2\Lambda)^j}{j!}\varepsilon_{d,j}
+ +\frac{(2\Lambda)^p}{p!}(2+\varepsilon_{d,p}).
+ \tag{10.3}\label{eq:10.3}
+\]
+First let $d\to\infty$ with $p$ fixed, and then let $p\to\infty$.
+No estimate uniform in growing moment order is required.
+\end{proof}
+
+\subsection{The scale-invariant cycle process}
+The scale-invariant Poisson process has intensity $dx/x$ on
+$(0,\infty)$; see Arratia~\cite{Arratia} for its role in permutation
+cycles and other logarithmic structures. The next result identifies this
+process as a moving mesoscopic limit for the present feedback model.
+
+\begin{corollary}[Scale-invariant Poisson limit]\label{cor:scale-poisson}
+Let $a_d/d\to\infty$, and assume $a_d\le N^\alpha$ for some fixed
+$0<\alpha<2/3$. Then the random counting measures
+\[
+ \Xi_d=\sum_{r=1}^N C_r\,\delta_{r/a_d}
+ \quad\Longrightarrow\quad
+ \Xi\sim\operatorname{PPP}(dx/x)
+ \tag{10.4}\label{eq:10.4}
+\]
+converge in distribution for the vague topology on locally finite counting
+measures on $(0,\infty)$.
+\end{corollary}
+\begin{proof}
+On a compact interval $[c,C]\subset(0,\infty)$, the relevant lengths
+exceed $4d$ eventually and are at most $CN^\alpha$. Use a slightly larger
+fixed exponent below $2/3$ in Theorem~\ref{thm:bounded-mass}. Their harmonic
+mass is bounded, and the discrete measures
+$\sum_r r^{-1}\delta_{r/a_d}$ converge vaguely to $dx/x$.
+The Laplace functionals of the corresponding Poisson processes therefore
+converge. Total variation transfers this convergence for compactly
+supported tests. Bounded expected counts on each compact interval give
+local tightness, proving the assertion.
+\end{proof}
+
+In particular, for $b=\lfloor N^\alpha\rfloor$ with $0<\alpha<2/3$,
+\[
+ \sum_{b<r\le2b}C_r\Longrightarrow\operatorname{Poisson}(\log2).
+\]
+A fixed finite collection of disjoint multiplicative windows has independent
+limiting counts, with means equal to the logarithms of their endpoint ratios.
+The windows may be at widely separated scales. These conclusions do not
+apply to the macroscopic window $(N/2,N]$, which contains at most one cycle.
+
+\subsection{Dickman mass and the largest cycle below a cutoff}
+The relation between scale-invariant Poisson processes and Dickman laws is
+classical \cite{Arratia,BM}. We give the short transfer proof to specify the
+normalization and the Thorp application.
+
+\begin{corollary}[Truncated cycle mass]\label{cor:dickman}
+Fix $0<\alpha<2/3$, put $b=\lfloor N^\alpha\rfloor$, and define
+\[
+ T_d(b)=\frac1b\sum_{r\le b}rC_r.
+\]
+Then $T_d(b)\Longrightarrow D$, where the standard Dickman variable $D$ is
+specified by
+\[
+ \mathbb E e^{-tD}
+ =\exp\!\left\{\int_0^1\frac{e^{-tx}-1}{x}\,dx\right\},
+ \qquad t\ge0.
+ \tag{10.5}\label{eq:10.5}
+\]
+Equivalently, $D=\int_{(0,1]}x\,\Xi(dx)$ for the process in
+Corollary~\ref{cor:scale-poisson}. The limiting mean and variance are
+$\mathbb ED=1$ and $\operatorname{Var}(D)=1/2$.
+\end{corollary}
+\begin{proof}
+For fixed $\varepsilon>0$, integration on $(\varepsilon,1]$ is continuous
+at the limiting point process almost surely: it has no atoms at either
+boundary. Thus the contribution from $\varepsilon b<r\le b$ converges by
+Corollary~\ref{cor:scale-poisson}. The all-positive-length upper bound gives
+\[
+ \mathbb E\left[\frac1b\sum_{r\le\varepsilon b}rC_r\right]
+ \le2\varepsilon
+\]
+for sufficiently large $d$. The limiting omitted Poisson mass has expectation
+$\varepsilon$. Markov's inequality and $\varepsilon\downarrow0$ complete the
+convergence argument. The Poisson Laplace functional gives
+\eqref{eq:10.5}; its first two cumulants are
+$\int_0^1x\,dx/x=1$ and $\int_0^1x^2\,dx/x=1/2$.
+\end{proof}
+
+\begin{corollary}[Largest cycle below a cutoff]\label{cor:maximum}
+With $b$ as above, let
+$R_d(b)=\max(\{r\le b:C_r>0\}\cup\{0\})$. Then
+\[
+ \frac{R_d(b)}b\Longrightarrow\operatorname{Uniform}(0,1).
+ \tag{10.6}\label{eq:10.6}
+\]
+\end{corollary}
+\begin{proof}
+For $0<x<1$, the event $R_d(b)/b\le x$ is the absence of cycles in
+$(xb,b]$. Its limiting probability, by Theorem~\ref{thm:bounded-mass}, is
+$\exp(-\int_x^1dt/t)=x$.
+\end{proof}
+
+The harmonic mass of the entire range $[4d,N^\alpha]$ diverges. Consequently
+Theorem~\ref{thm:bounded-mass} does not yield full-vector total-variation
+approximation on that range. The next section obtains an explicit estimate
+for an initial range below the birthday scale by a separate argument.
+
+\section{Quantitative approximation below the birthday scale}\label{sec:birthday}
+This section gives an explicit error for the complete initial cycle-count
+vector. Its proof uses context-simple necklace indicators, not a growing-order
+version of Theorem~\ref{thm:moments}.
+
+\begin{theorem}[Quantitative initial-range approximation]\label{thm:birthday}
+There is an absolute constant $C$ such that, for sufficiently large $d$ and
+$2d\le b\le\sqrt N$,
+\[
+ d_{\rm TV}\!\left(
+ \mathcal L((C_r)_{2d\le r\le b}),
+ \bigotimes_{r=2d}^{b}\operatorname{Poisson}(1/r)
+ \right)
+ \le C d^4(\log_2d)^4\frac{b^2}{N}.
+ \tag{11.1}\label{eq:11.1}
+\]
+In particular, the distance tends to zero when
+$b=o(\sqrt N/[d^2(\log_2d)^2])$.
+\end{theorem}
+
+\subsection{Context-simple cycles and sequential forced closure}
+A cycle is \emph{context-simple} if its queried length-$(d-1)$ contexts are
+all distinct. Let $C_r^{\rm rep}$ count the remaining $r$-cycles, and let
+$X_{r,s}$ count ordered pairs of distinct context-simple cycles of lengths
+$r,s$ sharing at least one context. Equal lengths are allowed.
+
+We first control one repeated-context cycle or a pair of context-simple
+cycles. Throughout this section, use the following forced probability law:
+choose independent uniform roots and construct each prescribed cycle by
+$r-d$ ordinary steps and $d$ forced closing steps. For a pair, construct the
+shorter cycle completely before constructing the longer one. Reject an
+incompatible closure, a premature return, or an intersection of the cycles.
+Let $V$ count closing queries already fixed by \emph{any} earlier query,
+including earlier closing queries. If the completed family uses $v$ contexts,
+the forced atom weight is $2^{-v-V}$. Thus, on a root-invariant class $E_m$
+with $m$ repeated contexts and total length $L$, root averaging gives
+\[
+ \mathbb P^\circ(E_m)
+ =\int_{E_m}\mathbb E_{\rm roots}(2^{-V})\,d\mu.
+ \tag{11.2}\label{eq:11.2}
+\]
+Here $\mu$ is the corresponding scaled ordinary cycle measure.
+For one cycle, $\mathbb E_{\rm roots}V\le2dm/r$. For a context-simple pair
+$r\le s$, only the second cycle can have known closing queries, and
+$\mathbb E_{\rm roots}V=dm/s\le2dm/(r+s)$. Therefore, writing $Q^{(m)}$
+for the contribution of $E_m$,
+\[
+ Q^{(m)}\le2^{2dm/L}\mathbb P^\circ(E_m).
+ \tag{11.3}\label{eq:11.3}
+\]
+
+Until the first repeated feedback query, this construction agrees with
+independent fair cyclic seed words: the starting $d$ bits and the $r-d$
+open-step output bits are independent, and closing appends the starting
+bits. For $r\ge2d$, each pair of distinct $(d-1)$-contexts on a circle
+matches with probability $2^{-(d-1)}=2/N$, by Appendix~\ref{app:contexts}.
+For two different circles the same probability follows from independence.
+On a successful intersecting context-simple pair, the first repetition
+must be between the two circles. Hence
+\[
+ \begin{aligned}
+ \sum_{m\ge1}\mathbb P^\circ(E_m)
+ &\le r(r-1)/N &&\text{for one cycle},\\
+ \sum_{m\ge1}\mathbb P^\circ(E_m)
+ &\le 2rs/N &&\text{for a context-simple pair}.
+ \end{aligned}
+ \tag{11.4}\label{eq:11.4}
+\]
+No unexposed feedback value is resampled after its first query.
+
+\subsection{A uniform sparse penalty}
+For $d^4\le L\le2\sqrt N$, the one- or two-word type estimate is
+\[
+ \log_2 Q^{(m)}
+ \le \frac{Lt}{h}
+ +2M\log_2[e(1+L/M)]+2\log_2L-\kappa m,
+ \quad M=2^h,
+ \tag{11.5}\label{eq:11.5}
+\]
+where $t=\log_2L-h$ and $\kappa=(2d-3h)/h$.
+Set $q=\log_2d$ and
+\[
+ h=\lfloor\log_2L-\log_2d-\log_2q\rfloor.
+\]
+For sufficiently large $d$, $2\le h\le d/2$, $\kappa\ge1$,
+$L/(2dq)<M\le L/(dq)$, and
+$2M\log_2[e(1+L/M)]\le4L/d$.
+Put
+\[
+ F=Lt/h+4L/d+2\log_2L,
+ \qquad m_0=\left\lceil\frac{F+L/d}{\kappa}\right\rceil.
+\]
+Then
+\[
+ \sum_{m\ge m_0}Q^{(m)}
+ \le2^{1-L/d}\le2^{1-d^3}.
+ \tag{11.6}\label{eq:11.6}
+\]
+For $m<m_0$, the penalty in \eqref{eq:11.3} is at most
+$\Pi=2^{2dm_0/L}$. Direct expansion gives
+\[
+ \log_2\Pi
+ \le\frac{2d}{2d-3h}
+ \left[t+\frac{5h}{d}+\frac{2h\log_2L}{L}\right]+\frac{2d}{L}
+ \le4t+15.
+\]
+Here the leading factor is at most $4$, $5h/d\le5/2$,
+$2h\log_2L/L\le1$, and $2d/L\le1$.
+Since $t<q+\log_2q+1$, one may take
+\[
+ \Pi\le 2^{20}d^4q^4.
+ \tag{11.7}\label{eq:11.7}
+\]
+Combining \eqref{eq:11.3}--\eqref{eq:11.7} yields
+\[
+ \begin{aligned}
+ \mathbb EC_r^{\rm rep}
+ &\le\Pi\frac{r-1}{N}+\frac{2^{1-r/d}}r
+ &&(r\ge d^4),\\
+ \mathbb EX_{r,s}
+ &\le\frac{2\Pi}{N}+\frac{2^{1-(r+s)/d}}{rs}
+ &&(r+s\ge d^4).
+ \end{aligned}
+ \tag{11.8}\label{eq:11.8}
+\]
+
+For the remaining short ranges, the following elementary bounds suffice:
+\[
+ \mathbb EC_r^{\rm rep}\le\frac{r(r-1)}N,
+ \qquad
+ \mathbb EX_{r,s}\le\frac{4\sqrt{rs}}N.
+ \tag{11.9}\label{eq:11.9}
+\]
+For one cycle, $H_d=\log_2r$ and $H_d-H_{d-1}=2m/r$ imply
+$2dm/r\le\log_2r$. Jensen in \eqref{eq:11.2} therefore loses at most a
+factor $r$; \eqref{eq:11.4} proves the first bound.
+For a context-simple pair, choose one of the two circles with probability
+$1/2$, then a position uniformly on that circle. This stationary mixture
+has $H_d=1+\tfrac12\log_2(rs)$. Each shared context merges atoms of masses
+$1/(2r)$ and $1/(2s)$ and contributes at least $1/s$ to the final entropy
+increment. Thus $dm/s\le1+\tfrac12\log_2(rs)$, and the inverse root-averaged
+likelihood is at most $2\sqrt{rs}$. The second bound follows from
+\eqref{eq:11.4} after dividing by $rs$.
+
+Summing \eqref{eq:11.8} and \eqref{eq:11.9} gives
+\[
+ \sum_{r=2d}^b\mathbb EC_r^{\rm rep}
+ +\sum_{r,s=2d}^b\mathbb EX_{r,s}
+ \le C d^4q^4\frac{b^2}{N}.
+ \tag{11.10}\label{eq:11.10}
+\]
+Indeed, on $r<d^4$ use $r^2\le d^4r$, and on $r+s<d^4$ use
+$\sqrt{rs}\le d^4/2$. The dense remainders are at most a polynomial in $b$
+times $2^{-d^3}$ and are negligible uniformly for $b\le\sqrt N$.
+
+\subsection{The point-process comparison}
+Let $\mathcal H_r$ be the set of possible context-simple primitive necklaces
+of length $r$. The event that $\gamma\in\mathcal H_r$ occurs as a cycle has
+indicator $I_\gamma$ and probability $p_\gamma=2^{-r}$.
+Its dependency neighborhood consists of all potential necklaces sharing
+one of its contexts, including itself. The indicator is independent of the
+joint collection outside that neighborhood, since their determining
+feedback bits are disjoint.
+
+The point-process theorem of Arratia, Goldstein, and Gordon
+\cite[Theorem~2]{AGG}, in our total-variation convention, bounds the distance
+from the independent Poisson indicators by $2(b_1+b_2)$, where
+\[
+ b_1=\sum_\gamma\sum_{\gamma'\sim\gamma}p_\gamma p_{\gamma'},
+ \qquad
+ b_2=\sum_\gamma\sum_{\substack{\gamma'\sim\gamma\\\gamma'\ne\gamma}}
+ \mathbb E(I_\gamma I_{\gamma'}).
+\]
+The external-dependence term is zero.
+For each pair of lengths $r,s$, rooting both necklaces gives
+\[
+ \sum_{\substack{\gamma\in\mathcal H_r,\ \gamma'\in\mathcal H_s\\
+                  \gamma\sim\gamma'}}p_\gamma p_{\gamma'}
+ \le\frac1{rs}\mathbb P\{
+ \text{two independent seed words share a context}\}
+ \le\frac2N.
+\]
+This includes the diagonal $\gamma=\gamma'$.
+Consequently $b_1\le2b^2/N$. Simultaneously occurring distinct necklaces
+are distinct actual cycles, so \eqref{eq:11.10} gives
+$b_2\le\sum_{r,s}\mathbb EX_{r,s}=O(d^4q^4b^2/N)$.
+Aggregation by length cannot increase total variation.
+
+Let $\lambda_r=|\mathcal H_r|2^{-r}$ be the mean context-simple cycle count.
+A length-$r$ cyclic seed has all contexts distinct if and only if it is a
+rooted context-simple necklace. Therefore
+\[
+ r\lambda_r=1-\delta_d(r),
+ \qquad
+ 0\le\frac1r-\lambda_r\le\frac{r-1}{N},
+\]
+where $\delta_d(r)\le r(r-1)/N$ is its context-collision probability.
+Changing the independent Poisson means to $1/r$ costs $O(b^2/N)$.
+Restoring non-context-simple cycles costs at most
+$\sum_r\mathbb EC_r^{\rm rep}$, bounded in \eqref{eq:11.10}.
+This proves Theorem~\ref{thm:birthday}.
+
+Theorems~\ref{thm:bounded-mass} and \ref{thm:birthday} are complementary.
+The former applies beyond the birthday scale but only to sets of bounded
+harmonic mass, with no asserted rate; the latter controls the complete
+initial vector and gives an explicit rate. Neither asserts a Poisson
+approximation for that complete vector above the birthday scale.
+
+\section{Scope and further directions}\label{sec:scope}
+The parameter restrictions are fixed before $d\to\infty$.
+Theorem~\ref{thm:moments} is uniform in length ratios but not in a growing
+number of cycles. The functional theorem concerns cycles of length at most
+$N^\alpha$, for fixed $\alpha<2/3$, rather than the full order of $T_f$.
+The Poisson theorem on bounded-harmonic-mass sets does allow a growing number
+of coordinates, but it does not cover the whole initial vector when its
+harmonic mass diverges.
+
+The full one-shuffle Erd\H{o}s--Tur\'{a}n statement suggested by these
+results is
+\[
+ \frac{\log\operatorname{ord}(T_f)-\tfrac12(\log N)^2}
+ {\sqrt{(\log N)^3/3}}
+ \Longrightarrow\mathcal N(0,1).
+\]
+It is not proved here. The present dense-tail estimate requires
+$\kappa=(2d-3h)/h>0$. Extending the moment comparison to the remaining
+length scales therefore requires an additional estimate, not just taking
+$\beta$ to the endpoint in a fixed-parameter theorem.
+
+The lower and upper moment arguments are analytic and combinatorial.
+Finite integer-arithmetic checks of feedback switches, root weights,
+entropy inequalities, and bridge identities accompany the source. They
+are reproducibility aids, not inputs to the asymptotic proof. The separate
+repository documentation records the checks, review history, and their
+limitations.
+
+\appendix
+\section{Equality graphs and exact short cycles}\label{app:contexts}
+\subsection{Wrapped-context comparisons}
+
+This appendix proves the small-length collision estimate used in \eqref{eq:6.1}.
+Let \(B\) require primitive component words and different necklaces for
+any two components of the same length.
+
+For two positions on the same circle of length \(n\), with nonzero
+displacement \(a\), the \(h\) consecutive comparisons are edges
+\(t\leftrightarrow t+a\) modulo \(n\). Write \(g=\gcd(n,a)\). For
+\(h<n\), the omitted \(n-h\) starting positions are consecutive and meet
+\(\min(g,n-h)\) of the \(g\) cycles of the full shift graph. The
+retained equality system therefore has rank \[
+ h-\max(0,g-n+h)=\min(h,n-g)
+\] over \(\mathbb F_2\). The same formula holds for \(h\ge n\), when the
+rank has already saturated. If \(h\ge n-g\), equality forces period
+dividing \(g<n\), which is impossible on \(B\). Otherwise the rank is
+\(h\), so equality has probability \(2^{-h}\). This includes a two-cycle
+in the shift graph: its two oriented edges impose one linear relation.
+
+For positions on different circles of lengths \(r,s\), offset their
+roots so that the comparisons are
+\((t\bmod r)\leftrightarrow(t\bmod s)\), \(0\le t<h\), in a bipartite
+graph. Let \(g=\gcd(r,s)\) and assume \(r\le s\). Its first \(s\) edges
+attach each vertex of the second circle once. Contract those edges. The
+next \(r-g\) edges become \(j\leftrightarrow j+s\pmod r\),
+\(0\le j<r-g\). The full shift-by-\(s\) graph has \(g\) cycles, and the
+omitted \(g\) consecutive edges remove exactly one from each. Thus the
+first \(r+s-g\) comparison edges form a forest and have that rank. At
+this threshold both words are forced to have period dividing \(g\). This
+is excluded by \(B\): either a component is nonprimitive, or the two
+have equal length and represent the same necklace. For smaller \(h\) the
+comparisons have rank \(h\) and probability \(2^{-h}\).
+
+Taking \(h=d-1\) proves, for every pair of distinct positions, \[
+ \mathbb P\{B\text{ and their contexts agree}\}\le2^{-(d-1)}.
+\] On \(B\) without such a collision, the weighted-word integrand equals
+one. On valid words its maximum is \(2^m\le L^{L/(2d)}\le L^{2k}\) when
+every length is below \(4d\). The union bound over \(\binom L2\) pairs
+gives \eqref{eq:6.1}.
+
+\subsection{Exact short-cycle laws}
+Let
+\[
+ \eta_r=\frac1r\sum_{a\mid r}\mu(a)2^{r/a}
+\]
+be the number of primitive binary necklaces of length $r$, where $\mu$ is
+the M\"obius function. The independent-binomial phenomenon was proved by
+Stark~\cite{Stark}. The wrapped-context comparison above yields the following
+explicit range directly.
+
+\begin{proposition}[Independent short-cycle counts]\label{prop:short-cycles}
+For $1\le r\le d-1$,
+\[
+ C_r\sim\operatorname{Binomial}(\eta_r,2^{-r}).
+\]
+For $d\ge2$, the variables
+$C_1,\ldots,C_{\lfloor(d+1)/2\rfloor}$ are mutually independent.
+\end{proposition}
+\begin{proof}
+A primitive necklace of length $r\le d-1$ has $r$ distinct contexts and
+occurs with probability $2^{-r}$. Distinct necklaces of the same length
+have disjoint context sets: agreement on $d-1\ge r$ consecutive positions
+would identify their periodic extensions. This gives the binomial marginal.
+
+Put $b=\lfloor(d+1)/2\rfloor$. For different lengths $r,s\le b$,
+\[
+ r+s-\gcd(r,s)\le2b-2\le d-1.
+\]
+The two-circle comparison above shows that a common context would identify
+the periodic extensions, contradicting their distinct minimal periods.
+Thus every primitive-necklace indicator involved in these lengths depends
+on a disjoint set of feedback bits. This proves joint independence.
+\end{proof}
+
+Stark's stated joint range is $r\le(d-1)/3$; the proposition records the
+larger elementary range furnished by the present equality-graph argument.
+In particular $C_1\sim\operatorname{Binomial}(2,1/2)$, so a Poisson
+approximation to all fixed small lengths cannot hold. This explains the
+lower cutoff in the harmonic moment asymptotics.
+
+\begin{thebibliography}{9}
+
+\bibitem{Arratia}
+R.~Arratia,
+\emph{On the central role of scale invariant Poisson processes on $(0,\infty)$},
+in \emph{Microsurveys in Discrete Probability} (Princeton, NJ, 1997),
+DIMACS Series in Discrete Mathematics and Theoretical Computer Science,
+vol.~41, American Mathematical Society, Providence, RI, 1998, pp.~21--41.
+Updated electronic version: \href{https://arxiv.org/abs/1611.05572}{arXiv:1611.05572}.
+
+\bibitem{ACH}
+R.~A.~Arratia, E.~R.~Canfield, and A.~W.~Hales,
+\emph{Random feedback shift registers and the limit distribution for largest cycle lengths},
+Combinatorics, Probability and Computing \textbf{32} (2023), no.~4, 559--593.
+\href{https://doi.org/10.1017/S0963548323000020}{doi:10.1017/S0963548323000020}.
+
+\bibitem{AGG}
+R.~Arratia, L.~Goldstein, and L.~Gordon,
+\emph{Poisson approximation and the Chen--Stein method},
+Statistical Science \textbf{5} (1990), no.~4, 403--424.
+\href{https://doi.org/10.1214/ss/1177012015}{doi:10.1214/ss/1177012015}.
+
+\bibitem{BM}
+C.~Bhattacharjee and I.~Molchanov,
+\emph{Convergence to scale-invariant Poisson processes and applications in Dickman approximation},
+Electronic Journal of Probability \textbf{25} (2020), paper no.~79, 1--20.
+\href{https://doi.org/10.1214/20-EJP482}{doi:10.1214/20-EJP482}.
+
+\bibitem{ET}
+P.~Erd\H{o}s and P.~Tur\'{a}n,
+\emph{On some problems of a statistical group-theory. I},
+Zeitschrift f\"ur Wahrscheinlichkeitstheorie und Verwandte Gebiete
+\textbf{4} (1965), 175--186.
+\href{https://doi.org/10.1007/BF00536750}{doi:10.1007/BF00536750}.
+
+\bibitem{Long}
+C.~D.~Long,
+\emph{Erd\H{o}s--Tur\'{a}n universality after one shuffle},
+research manuscript, 2026. Source and PDF in the
+\href{https://github.com/long-mathematics/nonuniform-random-permutations}{Nonuniform Random Permutations repository}, Paper~V.
+
+\bibitem{Stark}
+D.~Stark,
+\emph{The small cycle counts of random feedback shift registers},
+Australasian Journal of Combinatorics \textbf{86} (2023), no.~3, 414--422.
+\url{https://ajc.maths.uq.edu.au/pdf/86/ajc_v86_p414.pdf}.
+
+\bibitem{Thorp}
+E.~O.~Thorp,
+\emph{Nonrandom shuffling with applications to the game of Faro},
+Journal of the American Statistical Association \textbf{68} (1973),
+no.~344, 842--847.
+\href{https://doi.org/10.1080/01621459.1973.10481434}{doi:10.1080/01621459.1973.10481434}.
+
+\end{thebibliography}
+
+\end{document}
