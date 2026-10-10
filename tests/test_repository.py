@@ -123,5 +123,11 @@ class RepositoryTests(unittest.TestCase):
         self.assertIn("does not mark",status)
         self.assertIn("total-cycle expectation/CLT",status)
 
+    def test_thorp_paper_viii_registered(self):
+        self.assertIn(("papers/08-thorp-cycle-universality/thorp-cycle-universality.tex",
+                       "thorp-cycle-universality.pdf"), build.DOCUMENTS)
+        self.assertIn("papers/08-thorp-cycle-universality/",
+                      (ROOT/"notes/repository-status.md").read_text(encoding="utf-8"))
+
 if __name__=="__main__":
     unittest.main()

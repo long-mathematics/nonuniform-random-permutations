@@ -17,6 +17,7 @@ The repository separates current manuscripts, working branches, historical audit
 | V | Erdős--Turán Universality after One Shuffle | [Read PDF](output/pdf/one-shuffle-universality.pdf) | [Source](papers/05-one-shuffle-universality/one-shuffle-universality.tex) |
 | VI | Radial Extremality for LRU Caching and the Fill--Holst Conjecture ([arXiv:2605.26107](https://arxiv.org/abs/2605.26107)) | [Read PDF](output/pdf/radial-lru-extremality.pdf) | [Source](papers/06-radial-lru-extremality/radial-lru-extremality.tex) |
 | VII | Residual-Mass Transform Order for LRU Caching and the Coupon Collector | [Read PDF](output/pdf/residual-mass-transform-order.pdf) | [Source](papers/07-residual-mass-transform-order/residual-mass-transform-order.tex) |
+| VIII | Cycle Universality for a Single Thorp Shuffle | [Read PDF](output/pdf/thorp-cycle-universality.pdf) | [Source](papers/08-thorp-cycle-universality/thorp-cycle-universality.tex) |
 
 The PDFs are committed deterministic snapshots compiled from the linked sources. CI rebuilds every document from a clean checkout and requires the rebuilt PDF to be byte-for-byte identical to the committed snapshot. Intermediate files are kept out of the repository.
 
@@ -131,6 +132,14 @@ $$
 
 This paper is adjacent to the permutation-cycle program but uses the same Plackett--Luce/Gumbel size-biased ordering mechanism.
 
+### VIII. Cycle universality for one physical Thorp shuffle
+
+Paper VIII studies one random binary feedback-shift-register permutation, with the feedback function sampled **once and reused**. It obtains uniform joint cycle factorial-moment estimates for every fixed number of cycles, allowing arbitrary ratios of their lengths when their total length is below any fixed exponent less than two thirds of the dyadic state-space size. The two-sided estimate assumes each prescribed length is at least four times the register width.
+
+The consequences include a truncated functional Erdős--Turán Gaussian law, independent Poisson limits on sets of bounded harmonic mass, a scale-invariant Poisson cycle process, a Dickman law for truncated cycle mass, and the uniform limit for the largest cycle below a cutoff. A separate quantitative full-vector Poisson theorem applies below the birthday scale. Exact short-cycle binomial laws and lower bounds for the full order and cycle count are also recorded.
+
+**Scope:** The full one-shuffle Erdős--Turán conjecture, the exponent endpoint two thirds, and a full initial-vector Poisson approximation above the birthday range remain open. Paper VIII is an authored single-permutation cycle-statistics paper; the external OpenAI paper below studies mixing after multiple independent physical shuffles. [Scope, finite checks, and validation](papers/08-thorp-cycle-universality/README.md).
+
 ## Working branches
 
 | Document | Status | PDF | LaTeX |
@@ -138,7 +147,7 @@ This paper is adjacent to the permutation-cycle program but uses the same Placke
 | Functional Erdős--Turán Universality for Comparable-Rate Luce Permutations | Working functional/multivariate strengthening | [Read PDF](output/pdf/functional-luce-erdos-turan.pdf) | [Source](notes/working/functional-luce-erdos-turan.tex) |
 | Erdős--Turán, Berry--Esseen, and Edgeworth Universality after One Shuffle | Working Edgeworth/optimality strengthening | [Read PDF](output/pdf/one-shuffle-edgeworth-optimality.pdf) | [Source](notes/working/one-shuffle-edgeworth-optimality.tex) |
 
-These files are deliberately separated from the seven main manuscripts so that exploratory strengthenings are not presented as settled replacements.
+These files are deliberately separated from the eight main manuscripts so that exploratory strengthenings are not presented as settled replacements.
 
 ## Mesoscopic total-cycle branch: audit status
 
@@ -154,7 +163,7 @@ See [repository status](notes/repository-status.md) for the dependency and revie
 
 ## Thorp shuffle
 
-The optimal-order Thorp mixing theorem is an **external OpenAI result**, not a Long-authored manuscript. A pinned copy of its LaTeX source is kept under `third_party/openai-thorp/` with the original Apache-2.0 license and provenance.
+The optimal-order Thorp mixing theorem below is an **external OpenAI result**, not a Long-authored manuscript. The distinct Long-authored one-physical-shuffle cycle theorem is Paper VIII above. A pinned copy of its LaTeX source is kept under `third_party/openai-thorp/` with the original Apache-2.0 license and provenance.
 
 For $n=2^d$, its main theorem states
 
@@ -184,10 +193,10 @@ sudo apt-get install latexmk texlive-latex-extra texlive-fonts-recommended texli
 From the repository root:
 
 ```sh
-make pdf     # compile the seven papers, two working notes, and the pinned Thorp paper
+make pdf     # compile the eight papers, two working notes, and the pinned external Thorp paper
 make check   # verify hashes, rebuild PDFs byte-for-byte, and check README links/math syntax
 make test    # repository unit tests
-make verify  # run the exact finite Thorp audit in addition to the repository tests
+make verify  # run exact finite Thorp and Paper VIII reproducibility checks
 ```
 
 All canonical LaTeX sources are standalone except the pinned Thorp source, which includes its companion file. PDFs are committed under `output/pdf/`; intermediates stay in `.build/`. The [manifest](output/pdf/manifest.json) records source hashes, PDF hashes, and page counts.
@@ -200,13 +209,14 @@ The README intentionally uses GitHub's dollar-delimited inline math and double-d
 | --- | --- |
 | [Build and snapshot checker](scripts/build.py) | Compile manuscripts, refresh the PDF manifest, verify deterministic PDF bytes and hashes, and lint README links and math syntax |
 | [Thorp exact finite audit](scripts/thorp_moment_audit.cpp) | Exact integer check of 156 rooted cyclic-word factorial-moment identities in dimensions $d=2,3,4,5$ |
+| [Paper VIII reproducibility](scripts/thorp-cycle-universality/reproduce.py) | Re-run preserved multiscale finite checks and the additions audit; optionally rebuild Paper VIII and compare deterministic snapshots |
 
 The repository tests are in [`tests/test_repository.py`](tests/test_repository.py).
 
 ## Repository layout
 
 ```text
-papers/                     seven current Long manuscripts
+papers/                     eight current Long manuscripts
 notes/working/              active strengthenings
 notes/provenance/           historical candidates and audits
 third_party/openai-thorp/   pinned external source and license
