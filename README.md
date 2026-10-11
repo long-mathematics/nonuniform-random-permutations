@@ -4,9 +4,21 @@ Research manuscripts on Luce/Tsetlin permutations, move-to-front/LRU orderings, 
 
 Author of the manuscripts in `papers/`: **Christopher D. Long**.
 
-The repository separates current manuscripts, working branches, historical audit material, and third-party material. Compilation and finite computations are checks of the written arguments; they are not independent peer review or formal verification.
+## Canonical Luce/Tsetlin repository
+
+The canonical editing location for the Luce/Tsetlin manuscript series is [Luce/Tsetlin Permutations](https://github.com/long-mathematics/luce-tsetlin-permutations). It contains the current focused versions of the mesoscopic switching, scalar and functional Erdős--Turán, sharp logarithmic-order normal-approximation, and total-cycle Poisson/Edgeworth manuscripts, together with explicit theorem-status and dependency registers.
+
+The Luce/Tsetlin sources and PDFs in this repository are preserved historical snapshots from commit `6178a99a8f2ee7b6416edd026e7780b9b8fa9fa0`. They remain available for provenance, but they are not independent editing targets. Changes to Papers I--IV or to the local functional Luce branch should be made in the dedicated repository. The riffle/shelf, LRU/caching, and Thorp manuscripts remain maintained here.
+
+- [Current Luce/Tsetlin manuscript catalog](https://github.com/long-mathematics/luce-tsetlin-permutations#current-manuscripts)
+- [Current Luce/Tsetlin theorem status](https://github.com/long-mathematics/luce-tsetlin-permutations/blob/main/THEOREM_STATUS.md)
+- [Current Luce/Tsetlin dependency map](https://github.com/long-mathematics/luce-tsetlin-permutations/blob/main/DEPENDENCIES.md)
+
+Within this repository, current manuscripts, preserved Luce snapshots, working branches, historical audit material, and third-party material remain separated. Compilation and finite computations are checks of the written arguments; they are not independent peer review or formal verification.
 
 ## Read the papers
+
+Rows I--IV below are preserved local snapshots whose canonical editing versions now live in the dedicated Luce/Tsetlin repository. Rows V--VIII remain current manuscripts in this repository.
 
 | Paper | Manuscript | PDF | LaTeX |
 | --- | --- | --- | --- |
@@ -22,6 +34,8 @@ The repository separates current manuscripts, working branches, historical audit
 The PDFs are committed deterministic snapshots compiled from the linked sources. CI rebuilds every document from a clean checkout and requires the rebuilt PDF to be byte-for-byte identical to the committed snapshot. Intermediate files are kept out of the repository.
 
 ## Theorem map
+
+The summaries for Papers I--IV describe the preserved local versions. The dedicated Luce/Tsetlin repository is authoritative for their current organization, review status, and later total-cycle results.
 
 ### I. Luce/Tsetlin boundary, microscopic, endpoint, and macroscopic laws
 
@@ -144,22 +158,24 @@ The consequences include a truncated functional Erdős--Turán Gaussian law, ind
 
 | Document | Status | PDF | LaTeX |
 | --- | --- | --- | --- | --- |
-| Functional Erdős--Turán Universality for Comparable-Rate Luce Permutations | Working functional/multivariate strengthening | [Read PDF](output/pdf/functional-luce-erdos-turan.pdf) | [Source](notes/working/functional-luce-erdos-turan.tex) |
+| Functional Erdős--Turán Universality for Comparable-Rate Luce Permutations | Preserved historical working snapshot; [current manuscript](https://github.com/long-mathematics/luce-tsetlin-permutations/blob/main/papers/functional-erdos-turan/functional-luce-erdos-turan.tex) migrated | [Read PDF](output/pdf/functional-luce-erdos-turan.pdf) | [Source](notes/working/functional-luce-erdos-turan.tex) |
 | Erdős--Turán, Berry--Esseen, and Edgeworth Universality after One Shuffle | Working Edgeworth/optimality strengthening | [Read PDF](output/pdf/one-shuffle-edgeworth-optimality.pdf) | [Source](notes/working/one-shuffle-edgeworth-optimality.tex) |
 
-These files are deliberately separated from the eight main manuscripts so that exploratory strengthenings are not presented as settled replacements.
+The one-shuffle branch remains active here. The functional Luce file is retained unchanged for provenance and is not the canonical editing copy.
 
 ## Mesoscopic total-cycle branch: audit status
 
-A July candidate attempted to resolve both the mesoscopic cycle process and the total number of cycles. An adversarial audit found structural defects in that version, including the slab good event, adaptive-history treatment, and the factorial-moment-to-CLT step. The later free-depth switching manuscript gives a separate proof of the mesoscopic result, but this repository does **not** promote the total-cycle expectation/CLT claim to the established theorem list.
+A July candidate attempted to resolve both the mesoscopic cycle process and the total number of cycles. An adversarial audit found structural defects in that version, including the slab good event, adaptive-history treatment, and the factorial-moment-to-CLT step. The verdict on that candidate remains unchanged: this repository does **not** promote its total-cycle expectation/CLT claim to the established theorem list.
 
-The historical sources are preserved for provenance:
+A later functional manuscript uses a different Campbell--Stein and growing-dimensional product-Poisson argument rather than the rejected candidate's factorial-moment route. Following a scoped audit and integration, the dedicated Luce/Tsetlin repository records the resulting functional total-cycle CLT and a separate quantitative manuscript on exact-mean Poisson approximation, sharp Berry--Esseen bounds, and lattice Edgeworth expansions. Those newer proofs do not reinstate the candidate's proposed sampled-profile expectation expansion. See the [current theorem-status register](https://github.com/long-mathematics/luce-tsetlin-permutations/blob/main/THEOREM_STATUS.md) for the precise claims and review boundaries.
+
+The rejected historical sources remain preserved for provenance:
 
 - [resolution candidate](notes/provenance/mesoscopic-total-cycle-resolution-candidate.tex)
 - [audit and repair note](notes/provenance/mesoscopic-audit-and-repair.tex)
 - [free-depth endpoint audit](notes/provenance/free-depth-endpoint-audit.md)
 
-See [repository status](notes/repository-status.md) for the dependency and review boundary.
+See [repository status](notes/repository-status.md) for the local provenance and migration boundary.
 
 ## Thorp shuffle
 
@@ -216,8 +232,8 @@ The repository tests are in [`tests/test_repository.py`](tests/test_repository.p
 ## Repository layout
 
 ```text
-papers/                     eight current Long manuscripts
-notes/working/              active strengthenings
+papers/                     eight local manuscripts; Luce Papers I--IV are preserved snapshots
+notes/working/              one active one-shuffle branch and one preserved Luce snapshot
 notes/provenance/           historical candidates and audits
 third_party/openai-thorp/   pinned external source and license
 scripts/                    build checks and finite computations
@@ -227,7 +243,7 @@ tests/                      repository regression tests
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Mathematical changes should be separated from editorial/build changes. Do not infer proof status from a filename or chronology alone; update the status note when a theorem is promoted, weakened, or withdrawn.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Mathematical changes should be separated from editorial/build changes. Changes to the migrated Luce/Tsetlin series belong in the [dedicated repository](https://github.com/long-mathematics/luce-tsetlin-permutations); the preserved Luce files here should not be edited independently. Do not infer proof status from a filename or chronology alone; update the appropriate status note when a theorem is promoted, weakened, or withdrawn.
 
 ## License
 
